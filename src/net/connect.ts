@@ -18,5 +18,5 @@ export interface OpenRoomOptions {
 
 export const openRoom = async (opts: OpenRoomOptions): Promise<Room> => {
   const transport: Transport = netKind() === NetKind.Local ? createLocalTransport(opts.code) : await createTrysteroTransport(opts.code);
-  return createRoom(transport, opts);
+  return createRoom(transport, { ...opts, debug: new URLSearchParams(window.location.search).get("debug") === "1" });
 };

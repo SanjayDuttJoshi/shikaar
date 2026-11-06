@@ -30,7 +30,7 @@ There is no database, no login and no paid API. The friend who opens the room ru
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm run preview    # production build at http://localhost:4173
+npm run preview    # production build at http://localhost:4175
 npm test           # unit tests
 npm run test:e2e   # browser tests (Chrome)
 npm run deploy     # publish to GitHub Pages

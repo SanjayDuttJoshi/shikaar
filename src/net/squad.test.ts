@@ -70,6 +70,16 @@ describe("squad lobby", () => {
     expect(rooms[MAX_SQUAD].view().status).toBe(RoomStatus.Error);
   });
 
+  it("heals a split when the host's connection drops and comes back", async () => {
+    const { hub, rooms, ids } = await openRooms(["Raju", "Priya", "Sonu"]);
+    hub.blip(ids[0], 150);
+    await sleep(400);
+    const hosts = new Set(rooms.map((r) => r.view().lobby?.hostId));
+    expect(hosts.size).toBe(1);
+    expect(rooms.filter((r) => r.view().isHost).length).toBe(1);
+    rooms.forEach((r) => expect(r.view().lobby?.members.length).toBe(3));
+  });
+
   it("gives everyone the same round and the same building", async () => {
     const { rooms } = await openRooms(["Raju", "Priya", "Sonu"]);
     rooms[0].startRound(1234);

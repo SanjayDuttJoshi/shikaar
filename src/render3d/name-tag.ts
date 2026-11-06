@@ -57,7 +57,8 @@ export const createNameTag = (name: string, color: number): NameTag => {
       sprite.position.set(p.x, downed ? 0.9 : TAG_HEIGHT, p.z);
       const fade = downed ? 1 : 1 - Math.max(0, Math.min(1, (distance - FADE_FROM) / (FADE_TO - FADE_FROM)));
       material.opacity = 0.9 * fade;
-      const grow = downed ? Math.max(1, distance / 8) : 1;
+      // A downed friend's tag keeps roughly the same size on screen near or far.
+      const grow = downed ? Math.min(5, Math.max(0.4, distance / 8)) : 1;
       sprite.scale.set(1.3 * grow, 0.325 * grow, 1);
     },
   };

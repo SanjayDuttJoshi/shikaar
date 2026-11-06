@@ -18,6 +18,8 @@ export interface RoomOptions {
   findTimeoutMs?: number;
   /** How long a squad member who dropped mid-round may take to come back. */
   lostGraceMs?: number;
+  /** Log connection events to the console (?debug=1). */
+  debug?: boolean;
 }
 
 export interface Room {
@@ -57,6 +59,10 @@ export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
   let closed = false;
 
   const isHost = (): boolean => lobby?.hostId === selfId;
+  const log = (message: string): void => {
+    if (opts.debug) console.info(`[squad ${selfId.slice(0, 4)}] ${message}`);
+  };
+  transport.onError((message) => log(`transport error: ${message}`));
   const rebuild = (): void => {
     view = { status, code: opts.code, selfId, isHost: isHost(), lobby, round, notice };
     listeners.forEach((l) => l());
@@ -86,6 +92,7 @@ export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
 
   transport.onPeerJoin((peer) => {
     const pending = lost.get(peer);
+    log(`peer joined ${peer.slice(0, 4)}${pending ? " (back within grace)" : ""}`);
     if (pending) {
       clearTimeout(pending);
       lost.delete(peer);
@@ -105,7 +112,17 @@ export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
 
   transport.on(Channel.Lobby, (data, peer) => {
     const next = parseLobby(data);
-    if (!next || next.hostId !== peer || isHost()) return;
+    if (!next || next.hostId !== peer) return;
+    if (isHost()) {
+      // Two hosts after a split (a dropped connection came back): the one running a round keeps the
+      // room, otherwise the smaller id does. Both sides apply the same rule, so exactly one steps down.
+      const theirsRunning = next.status === LobbyStatus.Playing;
+      const mineRunning = round !== null;
+      const stepDown = theirsRunning !== mineRunning ? theirsRunning : peer < selfId;
+      if (!stepDown) return;
+      log(`stepping down: ${peer.slice(0, 4)} keeps the room`);
+      transport.send(Channel.Hello, { v: PROTOCOL_VERSION, name: opts.name }, peer);
+    }
     if (next.version !== PROTOCOL_VERSION) {
       fail("Dost ke paas game ka alag version hai. Dono page refresh karo.");
       return;
@@ -164,6 +181,7 @@ export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
 
   transport.onPeerLeave((peer) => {
     const playing = round?.players.some((p) => p.id === peer) ?? false;
+    log(`peer left ${peer.slice(0, 4)}${playing ? " (in round: grace starts)" : ""}`);
     if (!playing || lost.has(peer) || closed) {
       if (!lost.has(peer)) peerGone(peer);
       return;
@@ -172,6 +190,7 @@ export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
       peer,
       setTimeout(() => {
         lost.delete(peer);
+        log(`peer gone for good ${peer.slice(0, 4)}`);
         if (!closed) peerGone(peer);
       }, opts.lostGraceMs ?? LOST_GRACE_MS),
     );

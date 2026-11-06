@@ -39,6 +39,11 @@ export const GameApp = () => {
     setViewer(q.get("debug") === "1" && q.get("viewer") === "1");
   }, []);
 
+  // Each screen opens at its top (a scrolled-down home page would otherwise hide the room code).
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [screen]);
+
   useEffect(() => {
     if (screen === Screen.Playing) {
       stopMenuMusic();

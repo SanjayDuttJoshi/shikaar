@@ -35,6 +35,7 @@ const shot = async (page: Page, name: string, wait = 700): Promise<void> => {
 };
 
 const host = await tab(context, "Raju", "");
+await host.getByTestId("play-squad").scrollIntoViewIfNeeded();
 await shot(host, "s01-home-dosto-ke-saath", 1500);
 await host.getByTestId("play-squad").click();
 await shot(host, "s02-squad-panel");
