@@ -1,0 +1,578 @@
+[
+  {
+    "path": "ambience/asylum-drone.mp3",
+    "category": "ambience",
+    "durationSec": 60.0,
+    "loop": true
+  },
+  {
+    "path": "ambience/electric-hum.mp3",
+    "category": "ambience",
+    "durationSec": 45.0,
+    "loop": true
+  },
+  {
+    "path": "ambience/haveli-night.mp3",
+    "category": "ambience",
+    "durationSec": 90.0,
+    "loop": true
+  },
+  {
+    "path": "ambience/water-drips.mp3",
+    "category": "ambience",
+    "durationSec": 80.0,
+    "loop": true
+  },
+  {
+    "path": "ambience/wind-creaks.mp3",
+    "category": "ambience",
+    "durationSec": 72.0,
+    "loop": true
+  },
+  {
+    "path": "monster/attack-hit.mp3",
+    "category": "monster",
+    "durationSec": 1.107,
+    "loop": false
+  },
+  {
+    "path": "monster/breathing-loop.mp3",
+    "category": "monster",
+    "durationSec": 14.667,
+    "loop": true
+  },
+  {
+    "path": "monster/chain-drag-loop.mp3",
+    "category": "monster",
+    "durationSec": 20.0,
+    "loop": true
+  },
+  {
+    "path": "monster/chudail-laugh.mp3",
+    "category": "monster",
+    "durationSec": 3.557,
+    "loop": false
+  },
+  {
+    "path": "monster/chudail-scream.mp3",
+    "category": "monster",
+    "durationSec": 2.475,
+    "loop": false
+  },
+  {
+    "path": "monster/creepy-laugh.mp3",
+    "category": "monster",
+    "durationSec": 3.022,
+    "loop": false
+  },
+  {
+    "path": "monster/footstep-heavy-1.mp3",
+    "category": "monster",
+    "durationSec": 0.419,
+    "loop": false
+  },
+  {
+    "path": "monster/footstep-heavy-2.mp3",
+    "category": "monster",
+    "durationSec": 0.319,
+    "loop": false
+  },
+  {
+    "path": "monster/footstep-heavy-3.mp3",
+    "category": "monster",
+    "durationSec": 0.426,
+    "loop": false
+  },
+  {
+    "path": "monster/footstep-heavy-4.mp3",
+    "category": "monster",
+    "durationSec": 0.33,
+    "loop": false
+  },
+  {
+    "path": "monster/growl-1.mp3",
+    "category": "monster",
+    "durationSec": 3.363,
+    "loop": false
+  },
+  {
+    "path": "monster/growl-2.mp3",
+    "category": "monster",
+    "durationSec": 2.595,
+    "loop": false
+  },
+  {
+    "path": "monster/lantern-creak-loop.mp3",
+    "category": "monster",
+    "durationSec": 4.8,
+    "loop": true
+  },
+  {
+    "path": "monster/man-crying-loop.mp3",
+    "category": "monster",
+    "durationSec": 26.0,
+    "loop": true
+  },
+  {
+    "path": "monster/mareez-mutter-loop.mp3",
+    "category": "monster",
+    "durationSec": 16.05,
+    "loop": true
+  },
+  {
+    "path": "monster/mareez-roar.mp3",
+    "category": "monster",
+    "durationSec": 3.262,
+    "loop": false
+  },
+  {
+    "path": "monster/payal-step-1.mp3",
+    "category": "monster",
+    "durationSec": 0.869,
+    "loop": false
+  },
+  {
+    "path": "monster/payal-step-2.mp3",
+    "category": "monster",
+    "durationSec": 0.959,
+    "loop": false
+  },
+  {
+    "path": "monster/payal-step-3.mp3",
+    "category": "monster",
+    "durationSec": 0.937,
+    "loop": false
+  },
+  {
+    "path": "monster/payal-step-4.mp3",
+    "category": "monster",
+    "durationSec": 0.911,
+    "loop": false
+  },
+  {
+    "path": "monster/roar-chase.mp3",
+    "category": "monster",
+    "durationSec": 2.028,
+    "loop": false
+  },
+  {
+    "path": "monster/scream-close.mp3",
+    "category": "monster",
+    "durationSec": 3.732,
+    "loop": false
+  },
+  {
+    "path": "monster/shikari-scream.mp3",
+    "category": "monster",
+    "durationSec": 2.893,
+    "loop": false
+  },
+  {
+    "path": "monster/sniff-heavy.mp3",
+    "category": "monster",
+    "durationSec": 3.537,
+    "loop": false
+  },
+  {
+    "path": "monster/sniff.mp3",
+    "category": "monster",
+    "durationSec": 2.805,
+    "loop": false
+  },
+  {
+    "path": "monster/whistle-distant.mp3",
+    "category": "monster",
+    "durationSec": 3.47,
+    "loop": false
+  },
+  {
+    "path": "monster/wire-tear.mp3",
+    "category": "monster",
+    "durationSec": 2.086,
+    "loop": false
+  },
+  {
+    "path": "monster/woman-crying-loop.mp3",
+    "category": "monster",
+    "durationSec": 23.851,
+    "loop": true
+  },
+  {
+    "path": "music/chase-loop.mp3",
+    "category": "music",
+    "durationSec": 60.952,
+    "loop": true
+  },
+  {
+    "path": "music/death-sting.mp3",
+    "category": "music",
+    "durationSec": 5.0,
+    "loop": false
+  },
+  {
+    "path": "music/escape-sting.mp3",
+    "category": "music",
+    "durationSec": 6.212,
+    "loop": false
+  },
+  {
+    "path": "music/menu-loop.mp3",
+    "category": "music",
+    "durationSec": 41.4,
+    "loop": true
+  },
+  {
+    "path": "music/stinger-chudail.mp3",
+    "category": "music",
+    "durationSec": 2.4,
+    "loop": false
+  },
+  {
+    "path": "music/stinger-low.mp3",
+    "category": "music",
+    "durationSec": 2.6,
+    "loop": false
+  },
+  {
+    "path": "music/tension-loop.mp3",
+    "category": "music",
+    "durationSec": 84.0,
+    "loop": true
+  },
+  {
+    "path": "player/breath-heavy-loop.mp3",
+    "category": "player",
+    "durationSec": 4.446,
+    "loop": true
+  },
+  {
+    "path": "player/door-close.mp3",
+    "category": "player",
+    "durationSec": 0.788,
+    "loop": false
+  },
+  {
+    "path": "player/door-locked-rattle.mp3",
+    "category": "player",
+    "durationSec": 1.936,
+    "loop": false
+  },
+  {
+    "path": "player/door-open-creak.mp3",
+    "category": "player",
+    "durationSec": 3.338,
+    "loop": false
+  },
+  {
+    "path": "player/door-unlock.mp3",
+    "category": "player",
+    "durationSec": 3.475,
+    "loop": false
+  },
+  {
+    "path": "player/downed-thud.mp3",
+    "category": "player",
+    "durationSec": 1.398,
+    "loop": false
+  },
+  {
+    "path": "player/flash-burst.mp3",
+    "category": "player",
+    "durationSec": 2.615,
+    "loop": false
+  },
+  {
+    "path": "player/footstep-tile-1.mp3",
+    "category": "player",
+    "durationSec": 0.387,
+    "loop": false
+  },
+  {
+    "path": "player/footstep-tile-2.mp3",
+    "category": "player",
+    "durationSec": 0.32,
+    "loop": false
+  },
+  {
+    "path": "player/footstep-tile-3.mp3",
+    "category": "player",
+    "durationSec": 0.377,
+    "loop": false
+  },
+  {
+    "path": "player/footstep-tile-4.mp3",
+    "category": "player",
+    "durationSec": 0.4,
+    "loop": false
+  },
+  {
+    "path": "player/footstep-wood-1.mp3",
+    "category": "player",
+    "durationSec": 0.417,
+    "loop": false
+  },
+  {
+    "path": "player/footstep-wood-2.mp3",
+    "category": "player",
+    "durationSec": 0.382,
+    "loop": false
+  },
+  {
+    "path": "player/footstep-wood-3.mp3",
+    "category": "player",
+    "durationSec": 0.413,
+    "loop": false
+  },
+  {
+    "path": "player/footstep-wood-4.mp3",
+    "category": "player",
+    "durationSec": 0.422,
+    "loop": false
+  },
+  {
+    "path": "player/gate-open.mp3",
+    "category": "player",
+    "durationSec": 7.663,
+    "loop": false
+  },
+  {
+    "path": "player/heartbeat-loop.mp3",
+    "category": "player",
+    "durationSec": 1.0,
+    "loop": true
+  },
+  {
+    "path": "player/hurt-1.mp3",
+    "category": "player",
+    "durationSec": 0.322,
+    "loop": false
+  },
+  {
+    "path": "player/hurt-2.mp3",
+    "category": "player",
+    "durationSec": 0.763,
+    "loop": false
+  },
+  {
+    "path": "player/item-pickup.mp3",
+    "category": "player",
+    "durationSec": 0.363,
+    "loop": false
+  },
+  {
+    "path": "player/key-pickup.mp3",
+    "category": "player",
+    "durationSec": 1.162,
+    "loop": false
+  },
+  {
+    "path": "player/locker-close.mp3",
+    "category": "player",
+    "durationSec": 2.406,
+    "loop": false
+  },
+  {
+    "path": "player/locker-open.mp3",
+    "category": "player",
+    "durationSec": 4.128,
+    "loop": false
+  },
+  {
+    "path": "player/power-on.mp3",
+    "category": "player",
+    "durationSec": 4.599,
+    "loop": false
+  },
+  {
+    "path": "player/revive-gasp.mp3",
+    "category": "player",
+    "durationSec": 1.687,
+    "loop": false
+  },
+  {
+    "path": "player/torch-click.mp3",
+    "category": "player",
+    "durationSec": 0.061,
+    "loop": false
+  },
+  {
+    "path": "player/wardrobe-close.mp3",
+    "category": "player",
+    "durationSec": 0.839,
+    "loop": false
+  },
+  {
+    "path": "player/wardrobe-open.mp3",
+    "category": "player",
+    "durationSec": 3.584,
+    "loop": false
+  },
+  {
+    "path": "scares/baby-cry-distant.mp3",
+    "category": "scares",
+    "durationSec": 6.53,
+    "loop": false
+  },
+  {
+    "path": "scares/body-drop.mp3",
+    "category": "scares",
+    "durationSec": 3.331,
+    "loop": false
+  },
+  {
+    "path": "scares/body-thud.mp3",
+    "category": "scares",
+    "durationSec": 1.105,
+    "loop": false
+  },
+  {
+    "path": "scares/breath-behind.mp3",
+    "category": "scares",
+    "durationSec": 2.946,
+    "loop": false
+  },
+  {
+    "path": "scares/cat-hiss.mp3",
+    "category": "scares",
+    "durationSec": 1.514,
+    "loop": false
+  },
+  {
+    "path": "scares/cat-run.mp3",
+    "category": "scares",
+    "durationSec": 2.47,
+    "loop": false
+  },
+  {
+    "path": "scares/cat-yowl.mp3",
+    "category": "scares",
+    "durationSec": 3.702,
+    "loop": false
+  },
+  {
+    "path": "scares/chains-rattle.mp3",
+    "category": "scares",
+    "durationSec": 3.09,
+    "loop": false
+  },
+  {
+    "path": "scares/chicken-flap.mp3",
+    "category": "scares",
+    "durationSec": 4.928,
+    "loop": false
+  },
+  {
+    "path": "scares/child-laugh-distant.mp3",
+    "category": "scares",
+    "durationSec": 3.855,
+    "loop": false
+  },
+  {
+    "path": "scares/door-creak-slow.mp3",
+    "category": "scares",
+    "durationSec": 4.846,
+    "loop": false
+  },
+  {
+    "path": "scares/door-slam-distant.mp3",
+    "category": "scares",
+    "durationSec": 2.165,
+    "loop": false
+  },
+  {
+    "path": "scares/footsteps-running-above.mp3",
+    "category": "scares",
+    "durationSec": 3.972,
+    "loop": false
+  },
+  {
+    "path": "scares/glass-break.mp3",
+    "category": "scares",
+    "durationSec": 2.262,
+    "loop": false
+  },
+  {
+    "path": "scares/knock-knock.mp3",
+    "category": "scares",
+    "durationSec": 3.793,
+    "loop": false
+  },
+  {
+    "path": "scares/metal-scrape.mp3",
+    "category": "scares",
+    "durationSec": 6.071,
+    "loop": false
+  },
+  {
+    "path": "scares/music-box.mp3",
+    "category": "scares",
+    "durationSec": 7.029,
+    "loop": false
+  },
+  {
+    "path": "scares/object-fall.mp3",
+    "category": "scares",
+    "durationSec": 3.494,
+    "loop": false
+  },
+  {
+    "path": "scares/piano-key-low.mp3",
+    "category": "scares",
+    "durationSec": 7.608,
+    "loop": false
+  },
+  {
+    "path": "scares/radio-static-loop.mp3",
+    "category": "scares",
+    "durationSec": 30.0,
+    "loop": true
+  },
+  {
+    "path": "scares/rocking-chair-loop.mp3",
+    "category": "scares",
+    "durationSec": 28.8,
+    "loop": true
+  },
+  {
+    "path": "scares/rooster-crow.mp3",
+    "category": "scares",
+    "durationSec": 2.179,
+    "loop": false
+  },
+  {
+    "path": "scares/rope-creak-loop.mp3",
+    "category": "scares",
+    "durationSec": 10.2,
+    "loop": true
+  },
+  {
+    "path": "scares/scream-distant-1.mp3",
+    "category": "scares",
+    "durationSec": 4.09,
+    "loop": false
+  },
+  {
+    "path": "scares/scream-distant-2.mp3",
+    "category": "scares",
+    "durationSec": 4.516,
+    "loop": false
+  },
+  {
+    "path": "scares/stinger-hit.mp3",
+    "category": "scares",
+    "durationSec": 1.516,
+    "loop": false
+  },
+  {
+    "path": "scares/whisper-1.mp3",
+    "category": "scares",
+    "durationSec": 5.304,
+    "loop": false
+  },
+  {
+    "path": "scares/whisper-2.mp3",
+    "category": "scares",
+    "durationSec": 6.285,
+    "loop": false
+  }
+]

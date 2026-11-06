@@ -1,0 +1,36 @@
+{
+  "name": "shikaar",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "eslint",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "npm run build && playwright test",
+    "preview": "npm run build && node scripts/serve.mts",
+    "deploy": "node scripts/deploy-pages.mts",
+    "playtest:squad": "node scripts/playtest/squad.mts"
+  },
+  "dependencies": {
+    "next": "16.4.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "0.187.0",
+    "trystero": "^0.26.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "0.187.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.5",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^5.1.0"
+  }
+}
