@@ -14,6 +14,8 @@ export interface Session {
   online: boolean;
   /** Squad members the host is still waiting for (loading the round). */
   waitingFor: () => string[];
+  /** A connection problem worth showing (empty when all is well). */
+  trouble: () => string;
   step: (input: PlayerInput, dt: number, events: GameEvent[]) => void;
   interact: (target: InteractTarget, events: GameEvent[]) => void;
   revive: (targetId: string, dt: number, events: GameEvent[]) => void;
@@ -34,6 +36,7 @@ export const createLocalSession = (ctx: GameContext, state: WorldState, selfId: 
     selfId,
     online: false,
     waitingFor: () => [],
+    trouble: () => "",
     step: (input, dt, events) => {
       const me = self();
       let left = dt;

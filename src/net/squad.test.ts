@@ -19,10 +19,10 @@ import { mixSeed } from "@/world/rng";
 const SETTINGS = { difficulty: Difficulty.Normal, building: BuildingChoice.Asylum };
 const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
-const openRooms = async (names: string[]): Promise<{ hub: MemoryHub; rooms: Room[]; ids: string[] }> => {
+const openRooms = async (names: string[], lostGraceMs = 30): Promise<{ hub: MemoryHub; rooms: Room[]; ids: string[] }> => {
   const hub = new MemoryHub(2);
   const transports = names.map(() => hub.connect());
-  const rooms = names.map((name, i) => createRoom(transports[i], { code: "BHOOT", name, host: i === 0, settings: SETTINGS, findTimeoutMs: 2000 }));
+  const rooms = names.map((name, i) => createRoom(transports[i], { code: "BHOOT", name, host: i === 0, settings: SETTINGS, findTimeoutMs: 2000, lostGraceMs }));
   await sleep(40);
   return { hub, rooms, ids: transports.map((t) => t.selfId) };
 };
@@ -136,6 +136,20 @@ describe("squad round", () => {
     });
   });
 
+  it("keeps a player whose connection blips and comes back quickly", async () => {
+    const { hub, rooms, ids } = await openRooms(["Raju", "Priya"], 400);
+    rooms[0].startRound(5);
+    await sleep(30);
+    const [host, a] = playRound(rooms, rooms[0].view().round as RoundStart);
+    rooms[1].markReady();
+    await run([host, a], 5);
+    hub.blip(ids[1], 150);
+    await sleep(250);
+    await run([host, a], 10);
+    expect(host.state.players[1].status).toBe(PlayerStatus.Alive);
+    expect(rooms[1].view().round).not.toBeNull();
+  });
+
   it("marks a player who drops out as gone, and ends the round for clients when the host leaves", async () => {
     const { hub, rooms, ids } = await openRooms(["Raju", "Priya", "Sonu"]);
     rooms[0].startRound(5);
@@ -146,13 +160,13 @@ describe("squad round", () => {
     const log: GameEvent[][] = [];
     await run([host, a, b], 5);
     hub.drop(ids[2]);
-    await sleep(20);
+    await sleep(60);
     await run([host, a], 5, [], log);
     expect(host.state.players[2].status).toBe(PlayerStatus.Dead);
     expect(log[1].some((e) => e.kind === GameEventKind.PlayerLeft && e.player === ids[2])).toBe(true);
 
     hub.drop(ids[0]);
-    await sleep(20);
+    await sleep(60);
     const view = rooms[1].view();
     expect(view.round).toBeNull();
     expect(view.isHost).toBe(true);

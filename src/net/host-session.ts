@@ -217,6 +217,7 @@ export const createHostSession = ({ ctx, state, selfId, link, background = true 
     selfId,
     online: true,
     waitingFor: () => state.players.filter((p) => waiting.has(p.id)).map((p) => p.name),
+    trouble: () => "",
     step,
     interact: (target, events) => applyInteract(ctx, state, selfId, target, events),
     revive: (targetId, dt, events) => applyRevive(state, selfId, targetId, dt, events),

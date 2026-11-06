@@ -21,6 +21,10 @@ const PREDICT_HOLD = 0.6;
 /** Holding E on a downed friend counts while the runner keeps asking. */
 const REVIVE_HOLD = 0.25;
 const INBOX_MAX = 30;
+/** Say "loaded" again this often while the host still lists us as loading (the first message can get lost). */
+const READY_RESEND = 2;
+/** No snapshot for this long means the host's connection is struggling. */
+const STALE_AFTER = 2.5;
 
 export interface ClientSessionOptions {
   ctx: GameContext;
@@ -45,6 +49,7 @@ export const createClientSession = ({ ctx, state, selfId, link }: ClientSessionO
   let flashHold = -1;
   let reviveIndex = -1;
   let reviveAt = -1;
+  let readyAt = 0;
 
   link.on(Channel.Snap, (data, peer) => {
     if (peer !== link.hostId) return;
@@ -144,6 +149,7 @@ export const createClientSession = ({ ctx, state, selfId, link }: ClientSessionO
     selfId,
     online: true,
     waitingFor: () => waiting,
+    trouble: () => (lastSnapAt >= 0 && clock - lastSnapAt > STALE_AFTER ? "Host se connection kamzor hai... jod rahe hain" : ""),
     step: (input, dt, events) => {
       clock += dt;
       for (const wire of inbox.splice(0)) {
@@ -153,6 +159,10 @@ export const createClientSession = ({ ctx, state, selfId, link }: ClientSessionO
         for (const e of wire.e) if (!(e.kind === GameEventKind.Flash && e.player === selfId)) events.push(e);
       }
       const me = state.players[selfIndex];
+      if (me && waiting.includes(me.name) && clock - readyAt > READY_RESEND) {
+        readyAt = clock;
+        link.send(Channel.Ready, { round: link.round }, link.hostId);
+      }
       let left = dt;
       while (left > 1e-6 && me) {
         const slice = Math.min(MAX_STEP, left);

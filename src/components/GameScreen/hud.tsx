@@ -52,6 +52,11 @@ export const Hud = ({ hud, touch }: HudProps) => {
           </p>
         ))}
       </div>
+      {hud.trouble && (
+        <p className="absolute top-14 left-1/2 -translate-x-1/2 animate-pulse rounded border border-ember/40 bg-black/70 px-3 py-1.5 text-sm text-[#ffcfb0]" data-testid="net-trouble">
+          📶 {hud.trouble}
+        </p>
+      )}
       {hud.watching && (
         <p className="absolute bottom-[18%] left-1/2 -translate-x-1/2 rounded bg-black/55 px-3 py-1.5 text-center text-sm text-bone" data-testid="watching">
           {hud.watching} ko dekh rahe ho · {touch ? "Use button" : "E"} se badlo

@@ -200,6 +200,7 @@ export const createGameRunner = ({ view, session, input, hud, audio: initialAudi
       online,
       waiting: state.phase === RoundPhase.Intro ? session.waitingFor().join(", ") : "",
       watching: watching ? (state.players.find((q) => q.id === watching)?.name ?? "") : "",
+      trouble: session.trouble(),
     });
   };
 

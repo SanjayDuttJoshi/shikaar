@@ -16,6 +16,8 @@ export interface RoomOptions {
   settings: LobbySettings;
   /** How long a joiner waits for the host before giving up. */
   findTimeoutMs?: number;
+  /** How long a squad member who dropped mid-round may take to come back. */
+  lostGraceMs?: number;
 }
 
 export interface Room {
@@ -37,6 +39,8 @@ export interface Room {
 
 const ROUND_CHANNELS = [Channel.Snap, Channel.Pose, Channel.Act, Channel.Ready];
 const FIND_TIMEOUT_MS = 25000;
+/** A dropped connection mid-round (phone switching networks, a tab busy loading) may come back within this. */
+const LOST_GRACE_MS = 10000;
 
 export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
   const selfId = transport.selfId;
@@ -77,7 +81,15 @@ export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
     rebuild();
   };
 
+  /** Squad members whose connection dropped mid-round: they get a short grace to come back. */
+  const lost = new Map<string, ReturnType<typeof setTimeout>>();
+
   transport.onPeerJoin((peer) => {
+    const pending = lost.get(peer);
+    if (pending) {
+      clearTimeout(pending);
+      lost.delete(peer);
+    }
     transport.send(Channel.Hello, { v: PROTOCOL_VERSION, name: opts.name }, peer);
     if (isHost() && lobby) transport.send(Channel.Lobby, lobby, peer);
   });
@@ -135,7 +147,7 @@ export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
     });
   }
 
-  transport.onPeerLeave((peer) => {
+  const peerGone = (peer: string): void => {
     roundLeaves.forEach((h) => h(peer));
     if (!lobby) return;
     const wasHost = lobby.hostId === peer;
@@ -148,6 +160,21 @@ export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
     }
     broadcastLobby();
     rebuild();
+  };
+
+  transport.onPeerLeave((peer) => {
+    const playing = round?.players.some((p) => p.id === peer) ?? false;
+    if (!playing || lost.has(peer) || closed) {
+      if (!lost.has(peer)) peerGone(peer);
+      return;
+    }
+    lost.set(
+      peer,
+      setTimeout(() => {
+        lost.delete(peer);
+        if (!closed) peerGone(peer);
+      }, opts.lostGraceMs ?? LOST_GRACE_MS),
+    );
   });
 
   if (!opts.host) {
@@ -247,6 +274,7 @@ export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
     leave: () => {
       if (closed) return;
       closed = true;
+      lost.forEach((timer) => clearTimeout(timer));
       transport.leave();
       listeners.clear();
     },

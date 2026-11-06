@@ -17,6 +17,8 @@ const server = spawn("node", ["scripts/serve.mts"], { env: { ...process.env, POR
 await new Promise((r) => setTimeout(r, 800));
 const browser = await chromium.launch({ channel: "chrome", args: ["--enable-gpu", "--ignore-gpu-blocklist", "--autoplay-policy=no-user-gesture-required"] });
 const errors: string[] = [];
+/** Connection-library warnings (who got disconnected and why). */
+const netLog: string[] = [];
 const local = net === "local";
 
 interface Seat {
@@ -31,7 +33,9 @@ const seat = async (name: string, query: string, shared?: BrowserContext): Promi
   const page = await context.newPage();
   page.on("pageerror", (e) => errors.push(`${name}: ${String(e)}`));
   page.on("console", (m) => {
-    if (m.type() === "error" && !m.text().includes("404") && !/relay|websocket|wss:/i.test(m.text())) errors.push(`${name}: ${m.text()}`);
+    const text = m.text();
+    if (/trystero|disconnect|peer/i.test(text)) netLog.push(`${new Date().toISOString().slice(11, 19)} ${name} [${m.type()}] ${text}`);
+    if (m.type() === "error" && !text.includes("404") && !/relay|websocket|wss:/i.test(text)) errors.push(`${name}: ${text}`);
   });
   await page.addInitScript(
     ([n, b, d]) => localStorage.setItem("shikaar-settings-v1", JSON.stringify({ name: n, difficulty: d, building: b, quality: "medium", sensitivity: 1, volume: 0.8 })),
@@ -112,7 +116,8 @@ if (capture?.data) {
   writeFileSync(`${outDir}/audio.webm`, Buffer.from(capture.data, "base64"));
   writeFileSync(`${outDir}/audio.offset`, String((capture.startedAt - host.videoStart) / 1000));
 }
-writeFileSync(`${outDir}/log.txt`, [...log, "", ...results.map((r, i) => `${seats[i].name}: ${r.split("\n").slice(0, 2).join(" | ")}`), "", "errors:", ...errors].join("\n"));
+writeFileSync(`${outDir}/log.txt`, [...log, "", ...results.map((r, i) => `${seats[i].name}: ${r.split("\n").slice(0, 2).join(" | ")}`), "", "errors:", ...errors, "", "network:", ...netLog].join("\n"));
+if (netLog.length > 0) console.log("NETWORK:", netLog.slice(0, 12).join("\n"));
 console.log(log.slice(-4).join("\n"));
 console.log("RESULTS:", results.map((r) => r.split("\n").slice(0, 2).join(" ")).join(" || "), "errors:", errors.length);
 for (const s of seats) {

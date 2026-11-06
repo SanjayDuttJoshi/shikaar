@@ -64,6 +64,8 @@ export interface HudSnapshot {
   waiting: string;
   /** Name of the friend you're watching after dying/escaping. */
   watching: string;
+  /** Connection problem banner (empty when fine). */
+  trouble: string;
 }
 
 export enum Screen {

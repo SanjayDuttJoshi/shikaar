@@ -53,6 +53,24 @@ export class MemoryHub {
     };
   }
 
+  /** Simulates a short network drop: everyone sees the peer leave, then come back after `ms`. */
+  blip(id: string, ms: number): void {
+    const endpoint = this.endpoints.get(id);
+    if (!endpoint || !endpoint.alive) return;
+    endpoint.alive = false;
+    this.later(() => {
+      for (const other of this.endpoints.values()) if (other.alive) other.leaves.forEach((h) => h(id));
+    });
+    setTimeout(() => {
+      endpoint.alive = true;
+      for (const other of this.endpoints.values()) {
+        if (other === endpoint || !other.alive) continue;
+        other.joins.forEach((h) => h(id));
+        endpoint.joins.forEach((h) => h(other.id));
+      }
+    }, ms);
+  }
+
   /** Simulates a peer vanishing (closed tab, lost network). */
   drop(id: string): void {
     const endpoint = this.endpoints.get(id);
