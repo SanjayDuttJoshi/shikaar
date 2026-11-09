@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Phones held sideways: little height, so menus go compact or side by side. */
+@custom-variant short (@media (max-height: 520px));
+
 @theme {
   --font-display: var(--font-special), ui-serif, Georgia, serif;
   --font-body: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;

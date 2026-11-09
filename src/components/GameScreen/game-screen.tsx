@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ClickToStart, FailureOverlay, IntroOverlay, LoadingOverlay, PauseMenu } from "@/components/GameScreen/overlays";
+import { ClickToStart, FailureOverlay, IntroOverlay, LoadingOverlay, PortraitHint } from "@/components/GameScreen/overlays";
+import { PauseMenu } from "@/components/GameScreen/pause-menu";
 import { ControlsPanel } from "@/components/Common/controls-panel";
 import { Hud } from "@/components/GameScreen/hud";
 import { EnvelopeOverlay, FilmOverlay } from "@/components/GameScreen/story-overlays";
@@ -11,7 +12,8 @@ import { useGameHandle } from "@/hooks/use-game-handle";
 import type { OnlineRound } from "@/hooks/use-game-handle";
 import { useHud } from "@/hooks/use-hud";
 import { useIsTouch } from "@/hooks/use-is-touch";
-import { RoundPhase } from "@/types/game";
+import { useIsPortrait } from "@/hooks/use-is-portrait";
+import { PlayerStatus, RoundPhase } from "@/types/game";
 import type { RoundResult, Settings } from "@/types/ui";
 import type { MatchConfig } from "@/types/match";
 
@@ -36,6 +38,7 @@ export const GameScreen = ({ config, settings, onSettings, onFinish, onQuit, onl
   const [locked, setLocked] = useState(false);
   const [controls, setControls] = useState(false);
   const touch = useIsTouch();
+  const portrait = useIsPortrait();
   const pause = useCallback(() => setPaused(true), []);
   const { handle, progress, failure } = useGameHandle(canvasRef, config, online, settings, pause, onFinish);
   const hud = useHud(handle?.hud ?? null);
@@ -67,7 +70,15 @@ export const GameScreen = ({ config, settings, onSettings, onFinish, onQuit, onl
         <EnvelopeOverlay title={hud.offerTitle} touch={touch} onPlay={() => setUse(handle.input, true)} onLater={() => pressTorch(handle.input)} />
       )}
       {handle && hud?.film && <FilmOverlay title={hud.film.title} subtitle={hud.film.subtitle} progress={hud.film.progress} touch={touch} onSkip={() => setUse(handle.input, true)} />}
-      {handle && touch && !paused && !hud?.film && hud?.offer === -1 && <TouchControls input={handle.input} sensitivity={settings.sensitivity} onPause={pause} />}
+      {handle && touch && !paused && !hud?.film && hud?.offer === -1 && (
+        <TouchControls
+          input={handle.input}
+          sensitivity={settings.sensitivity}
+          onPause={pause}
+          watching={hud.status === PlayerStatus.Dead || hud.status === PlayerStatus.Escaped}
+        />
+      )}
+      {handle && touch && portrait && !paused && !hud?.film && <PortraitHint />}
       {handle && waitingForClick && <ClickToStart onStart={() => canvasRef.current?.requestPointerLock?.()?.catch?.(() => undefined)} />}
       {paused && (
         <PauseMenu

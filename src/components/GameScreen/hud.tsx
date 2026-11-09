@@ -1,5 +1,6 @@
 import { PlayerStatus, RoundPhase } from "@/types/game";
 import { MessageTone } from "@/types/ui";
+import { MATE_STATUS } from "@/lib/labels";
 import type { HudSnapshot } from "@/types/ui";
 import { ObjectivePanel } from "@/components/GameScreen/objective-panel";
 import { HideOverlay } from "@/components/GameScreen/hide-overlay";
@@ -47,7 +48,7 @@ export const Hud = ({ hud, touch }: HudProps) => {
       )}
       <div className="absolute top-[30%] left-1/2 flex w-[min(92vw,34rem)] -translate-x-1/2 flex-col items-center gap-1.5">
         {hud.messages.map((m) => (
-          <p key={m.id} className={`animate-rise text-center font-display text-lg sm:text-xl ${TONE_CLASS[m.tone]}`}>
+          <p key={m.id} className={`animate-rise text-center font-display text-lg [text-shadow:0_1px_3px_#000,0_0_10px_rgba(0,0,0,0.9)] sm:text-xl ${TONE_CLASS[m.tone]}`}>
             {m.text}
           </p>
         ))}
@@ -63,13 +64,13 @@ export const Hud = ({ hud, touch }: HudProps) => {
         </p>
       )}
       {hud.status === PlayerStatus.Downed && (
-        <p className="absolute bottom-[38%] left-1/2 -translate-x-1/2 animate-pulse-red font-display text-xl">Khoon beh raha hai... {Math.ceil(hud.bleed)}</p>
+        <p className="absolute bottom-[38%] left-1/2 -translate-x-1/2 animate-pulse-red rounded bg-black/60 px-4 py-1.5 font-display text-xl">Khoon beh raha hai... {Math.ceil(hud.bleed)}</p>
       )}
       {hud.teammates.length > 0 && (
         <ul className="absolute top-3 right-3 space-y-0.5 rounded-md bg-black/35 px-3 py-2 text-xs text-ash">
           {hud.teammates.map((t) => (
-            <li key={t.id}>
-              {t.name} · {t.status === PlayerStatus.Alive || t.status === PlayerStatus.Hiding ? `${Math.round(t.distance)}m` : t.status}
+            <li key={t.id} className={t.status === PlayerStatus.Downed ? "text-[#ff7a66]" : ""}>
+              {t.name} · {t.status === PlayerStatus.Alive ? `${Math.round(t.distance)}m` : t.status === PlayerStatus.Hiding ? `${MATE_STATUS[t.status]} · ${Math.round(t.distance)}m` : MATE_STATUS[t.status]}
             </li>
           ))}
         </ul>

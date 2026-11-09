@@ -47,7 +47,7 @@ export const LobbyScreen = ({ view, onSettings, onStart, onLeave }: LobbyScreenP
         {lobby && view.isHost && (
           <div className="flex flex-col gap-4 rounded-lg border border-white/10 bg-panel p-4">
             <ChoiceRow label="Shikari kitna khatarnak" value={lobby.settings.difficulty} options={DIFFICULTY_OPTIONS} onChange={(difficulty) => onSettings({ ...lobby.settings, difficulty })} />
-            <ChoiceRow label="Jagah" value={lobby.settings.building} options={BUILDING_OPTIONS} onChange={(building) => onSettings({ ...lobby.settings, building })} />
+            <ChoiceRow label="Jagah (map)" value={lobby.settings.building} options={BUILDING_OPTIONS} onChange={(building) => onSettings({ ...lobby.settings, building })} />
           </div>
         )}
         {lobby && !view.isHost && view.status === RoomStatus.Lobby && (

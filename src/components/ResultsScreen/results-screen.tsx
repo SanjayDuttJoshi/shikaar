@@ -30,19 +30,19 @@ const Stat = ({ label, value }: { label: string; value: string }) => (
 export const ResultsScreen = ({ result, onAgain, onMenu, squad = null }: ResultsScreenProps) => {
   const won = result.outcome === RoundOutcome.AllEscaped || result.escaped;
   return (
-    <main className="flex min-h-dvh items-center justify-center px-4 py-10" data-testid="results">
-      <section className="flex w-full max-w-md animate-rise flex-col gap-6 text-center">
+    <main className="flex min-h-dvh items-center justify-center px-4 py-10 short:py-4" data-testid="results">
+      <section className="flex w-full max-w-md animate-rise flex-col gap-6 text-center short:max-w-2xl short:gap-3">
         <p className="text-sm tracking-[0.4em] text-ash uppercase">{THEME_TITLE[result.theme]}</p>
-        <h1 className={`font-display text-5xl sm:text-6xl ${won ? "text-[#d8ecd2]" : "animate-flicker text-[#ff6a55] text-glow-red"}`}>{TITLE[result.outcome]}</h1>
+        <h1 className={`font-display text-5xl sm:text-6xl short:text-4xl ${won ? "text-[#d8ecd2]" : "animate-flicker text-[#ff6a55] text-glow-red"}`}>{TITLE[result.outcome]}</h1>
         <p className="font-display text-ash italic">{won ? STORY[result.theme].escaped : STORY[result.theme].caught}</p>
-        <div className="grid grid-cols-2 gap-2 text-left">
+        <div className="grid grid-cols-2 gap-2 text-left short:grid-cols-5">
           <Stat label="Waqt" value={formatClock(result.seconds)} />
           <Stat label="Chaabi" value={`${result.keysFound}/${result.keysTotal}`} />
           <Stat label="Fuse" value={`${result.fusesInserted}/${result.fusesNeeded}`} />
           <Stat label="Chot" value={`${result.timesHit}`} />
           <Stat label="Kahani ke panne" value={`${result.notesFound}/${result.notesTotal}`} />
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 short:flex-row short:gap-2">
           {(!squad || squad.isHost) && (
             <HorrorButton testId="play-again" onClick={onAgain}>
               {squad ? "Agla round (sab ke saath)" : "Phir se andar jao"}

@@ -39,8 +39,8 @@ export const ControlsPanel = ({ settings, onChange, onClose }: ControlsPanelProp
   }, [listening, settings, onChange]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm" data-testid="controls-panel">
-      <div className="flex max-h-[92dvh] w-full max-w-lg flex-col gap-4 overflow-y-auto rounded-lg border border-white/10 bg-panel p-5">
+    <div className="fixed inset-0 z-50 flex overflow-y-auto bg-black/80 px-4 py-4 backdrop-blur-sm" data-testid="controls-panel">
+      <div className="m-auto flex w-full max-w-lg flex-col gap-4 rounded-lg border border-white/10 bg-panel p-5">
         <h2 className="text-center font-display text-2xl text-bone">Controls</h2>
         <div className="grid grid-cols-2 gap-2">
           {[

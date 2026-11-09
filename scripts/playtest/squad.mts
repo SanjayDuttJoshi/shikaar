@@ -1,17 +1,19 @@
 import { spawn } from "node:child_process";
 import { mkdirSync, renameSync, writeFileSync } from "node:fs";
-import { chromium } from "@playwright/test";
+import { chromium, devices } from "@playwright/test";
 import type { BrowserContext, Page } from "@playwright/test";
 
 /**
  * A squad round played by autopilots, each in its own browser window, recorded for the showcase.
  * By default they meet over the real internet (Trystero, free public relays), like friends would.
- * Usage: node scripts/playtest/squad.mts <outDir> <seed> <asylum|haveli> <difficulty> [players=2] [minutes=10] [net=online|local]
+ * Usage: node scripts/playtest/squad.mts <outDir> <seed> <asylum|haveli> <difficulty> [players=2] [minutes=10] [net=online|local] [phoneSeat]
+ * phoneSeat: index of a friend who plays on a phone held sideways (touch controls on screen), e.g. 2.
  */
-const [outDir = ".workshop/squad", seed = "21", building = "asylum", difficulty = "easy", players = "2", minutes = "10", net = "online"] = process.argv.slice(2);
+const [outDir = ".workshop/squad", seed = "21", building = "asylum", difficulty = "easy", players = "2", minutes = "10", net = "online", phoneSeat = "-1"] = process.argv.slice(2);
 mkdirSync(outDir, { recursive: true });
 const NAMES = ["Raju", "Priya", "Sonu", "Meena"];
 const SIZE = { width: 960, height: 540 };
+const PHONE = { width: 915, height: 412 };
 const PORT = 4260 + Math.floor(Math.random() * 30);
 const server = spawn("node", ["scripts/serve.mts"], { env: { ...process.env, PORT: String(PORT), SERVE_DIR: process.env.SERVE_DIR ?? "out" }, stdio: "ignore" });
 await new Promise((r) => setTimeout(r, 800));
@@ -29,7 +31,12 @@ interface Seat {
 }
 
 const seat = async (name: string, query: string, shared?: BrowserContext): Promise<Seat> => {
-  const context = shared ?? (await browser.newContext({ viewport: SIZE, recordVideo: { dir: outDir, size: SIZE } }));
+  const phone = NAMES.indexOf(name) === Number(phoneSeat);
+  const context =
+    shared ??
+    (await browser.newContext(
+      phone ? { ...devices["Pixel 7"], viewport: PHONE, recordVideo: { dir: outDir, size: PHONE } } : { viewport: SIZE, recordVideo: { dir: outDir, size: SIZE } },
+    ));
   const page = await context.newPage();
   page.on("pageerror", (e) => errors.push(`${name}: ${String(e)}`));
   page.on("console", (m) => {
@@ -38,8 +45,8 @@ const seat = async (name: string, query: string, shared?: BrowserContext): Promi
     if (m.type() === "error" && !text.includes("404") && !/relay|websocket|wss:/i.test(text)) errors.push(`${name}: ${text}`);
   });
   await page.addInitScript(
-    ([n, b, d]) => localStorage.setItem("shikaar-settings-v1", JSON.stringify({ name: n, difficulty: d, building: b, quality: "medium", sensitivity: 1, volume: 0.8 })),
-    [name, building, difficulty],
+    ([n, b, d, q]) => localStorage.setItem("shikaar-settings-v1", JSON.stringify({ name: n, difficulty: d, building: b, quality: q, sensitivity: 1, volume: 0.8 })),
+    [name, building, difficulty, phone ? "low" : "medium"],
   );
   const videoStart = Date.now();
   await page.goto(`http://localhost:${PORT}/?debug=1&noclick=1&autopilot=1&seed=${seed}${local ? "&net=local" : ""}${query}`);

@@ -30,8 +30,9 @@ export const attachDesktopInput = ({ canvas, input, sensitivity, bindings, inver
     input.interactHeld = isHeld(KeyAction.Use);
   };
   const onKeyDown = (e: KeyboardEvent): void => {
-    // Esc normally just releases the mouse (which pauses); without a locked mouse it pauses directly.
-    if (e.code === "Escape" && enabled() && document.pointerLockElement !== canvas) onPause();
+    // Esc normally just releases the mouse (which pauses); without a locked mouse it pauses directly,
+    // also on the "click to start" screen so the menu is always one key away.
+    if (e.code === "Escape" && document.pointerLockElement !== canvas) onPause();
     if (!enabled() || e.code === "Escape") return;
     const actions = actionsOf(e.code);
     if (actions.length > 0) e.preventDefault();

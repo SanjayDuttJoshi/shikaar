@@ -8,9 +8,10 @@ let buffer: Promise<AudioBuffer | null> | null = null;
 let wanted = false;
 
 /** Eerie loop on the menu. Starts after the first tap/click (browsers block sound before that). */
-export const startMenuMusic = async (volume: number): Promise<void> => {
+export const startMenuMusic = async (volume: number, lowRate = false): Promise<void> => {
   wanted = true;
-  const ctx = unlockAudio();
+  // The first sound creates the app's one AudioContext, so it must already use the phone-friendly rate.
+  const ctx = unlockAudio(lowRate);
   if (!ctx || source) return;
   buffer ??= fetch(assetUrl("audio/music/menu-loop.mp3"))
     .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error("missing"))))

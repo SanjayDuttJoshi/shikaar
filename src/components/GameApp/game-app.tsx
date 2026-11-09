@@ -13,6 +13,7 @@ import type { RoundStart } from "@/types/net";
 import { SSR_SETTINGS, loadSettings, saveSettings } from "@/lib/settings";
 import { pickTheme, randomSeed } from "@/lib/match-config";
 import { unlockAudio } from "@/audio/audio-context";
+import { enterPlayMode } from "@/lib/play-mode";
 import { startMenuMusic, stopMenuMusic } from "@/audio/menu-music";
 import { Quality } from "@/types/render";
 import { useSquad } from "@/hooks/use-squad";
@@ -50,11 +51,11 @@ export const GameApp = () => {
       return;
     }
     const begin = (): void => {
-      startMenuMusic(settings.volume).catch(() => undefined);
+      startMenuMusic(settings.volume, settings.quality === Quality.Low).catch(() => undefined);
     };
     window.addEventListener("pointerdown", begin, { once: true });
     return () => window.removeEventListener("pointerdown", begin);
-  }, [screen, settings.volume]);
+  }, [screen, settings.volume, settings.quality]);
 
   // The host starting (or cancelling) a squad round moves everyone's screen.
   const roomRound = squad.view?.round ?? null;
@@ -76,6 +77,7 @@ export const GameApp = () => {
 
   const start = (round: number): void => {
     unlockAudio(settings.quality === Quality.Low);
+    enterPlayMode();
     setConfig({
       theme: pickTheme(settings.building, round),
       seed: seedFromUrl() ?? randomSeed(),
@@ -124,6 +126,7 @@ export const GameApp = () => {
         squad={online ? { isHost: squad.view?.isHost ?? false } : null}
         onAgain={() => {
           unlockAudio(settings.quality === Quality.Low);
+          enterPlayMode();
           if (online) squad.room?.startRound(seedFromUrl() ?? undefined);
           else start(config.round + 1);
         }}
@@ -138,6 +141,7 @@ export const GameApp = () => {
         onSettings={(s) => squad.room?.setSettings(s)}
         onStart={() => {
           unlockAudio(settings.quality === Quality.Low);
+          enterPlayMode();
           squad.room?.startRound(seedFromUrl() ?? undefined);
         }}
         onLeave={leaveRoom}
@@ -162,6 +166,8 @@ export const GameApp = () => {
         },
         onJoin: (code) => {
           unlockAudio(settings.quality === Quality.Low);
+          // A friend's round is started by the host, so this tap is their last chance to go fullscreen.
+          enterPlayMode();
           squad.join(code).then((ok) => ok && setScreen(Screen.Lobby));
         },
       }}

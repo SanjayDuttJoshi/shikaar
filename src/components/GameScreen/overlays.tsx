@@ -28,65 +28,6 @@ export const IntroOverlay = ({ theme, waiting }: { theme: Theme; waiting: string
   </div>
 );
 
-interface PauseMenuProps {
-  touch: boolean;
-  sensitivity: number;
-  volume: number;
-  brightness: number;
-  onBrightness: (v: number) => void;
-  onSensitivity: (v: number) => void;
-  onVolume: (v: number) => void;
-  onResume: () => void;
-  onQuit: () => void;
-  onControls: () => void;
-  films: Array<{ index: number; title: string }>;
-  onFilm: (index: number) => void;
-  /** Squad round: the world keeps running, and quitting goes back to the room. */
-  online: boolean;
-}
-
-export const PauseMenu = ({ touch, sensitivity, volume, brightness, onBrightness, onSensitivity, onVolume, onResume, onQuit, onControls, films, onFilm, online }: PauseMenuProps) => (
-  <div className="absolute inset-0 z-40 flex items-center justify-center bg-black/75 px-4 backdrop-blur-sm" data-testid="pause-menu">
-    <div className="flex w-full max-w-sm flex-col gap-5 rounded-lg border border-white/10 bg-panel p-6">
-      <h2 className="text-center font-display text-3xl text-bone">Ruko...</h2>
-      {online && <p className="-mt-3 text-center text-sm text-[#ffb4a8]">Online game rukta nahi! Shikari abhi bhi chal raha hai.</p>}
-      <label className="flex flex-col gap-1 text-sm text-ash">
-        Mouse/touch speed: {sensitivity.toFixed(1)}
-        <input type="range" min={0.3} max={2.5} step={0.1} value={sensitivity} onChange={(e) => onSensitivity(Number(e.target.value))} className="accent-[#b3140f]" />
-      </label>
-      <label className="flex flex-col gap-1 text-sm text-ash">
-        Roshni (brightness): {Math.round(brightness * 100)}%
-        <input type="range" min={0.6} max={2} step={0.05} value={brightness} onChange={(e) => onBrightness(Number(e.target.value))} className="accent-[#b3140f]" />
-      </label>
-      <label className="flex flex-col gap-1 text-sm text-ash">
-        Awaaz: {Math.round(volume * 100)}%
-        <input type="range" min={0} max={1} step={0.05} value={volume} onChange={(e) => onVolume(Number(e.target.value))} className="accent-[#b3140f]" />
-      </label>
-      {films.length > 0 && (
-        <div className="flex flex-col gap-1.5">
-          <span className="text-xs tracking-[0.2em] text-ash uppercase">Yaadein (mili hui)</span>
-          {films.map((f) => (
-            <button key={f.index} type="button" onClick={() => onFilm(f.index)} className="rounded border border-white/15 bg-black/40 px-3 py-2 text-left text-sm text-bone hover:border-blood/60">
-              ▶ {f.title}
-            </button>
-          ))}
-        </div>
-      )}
-      {!touch && (
-        <HorrorButton variant="ghost" onClick={onControls}>
-          Controls / keys badlo
-        </HorrorButton>
-      )}
-      <HorrorButton testId="resume" onClick={onResume}>
-        Wapas chalo
-      </HorrorButton>
-      <HorrorButton variant="ghost" testId="quit-round" onClick={onQuit}>
-        {online ? "Round chhodo (room mein wapas)" : "Menu pe jao"}
-      </HorrorButton>
-    </div>
-  </div>
-);
-
 export const ClickToStart = ({ onStart }: { onStart: () => void }) => (
   <button type="button" onClick={onStart} className="absolute inset-0 z-20 flex items-end justify-center pb-[18vh]" data-testid="click-to-start">
     <span className="animate-breathe rounded bg-black/60 px-4 py-2 font-display text-lg text-bone">Click karo, phir mouse se dekho</span>
@@ -100,4 +41,14 @@ export const FailureOverlay = ({ message, onBack }: { message: string; onBack: (
       <HorrorButton onClick={onBack}>Wapas</HorrorButton>
     </div>
   </div>
+);
+
+/** Phone held upright during a round: a gentle nudge to turn it (doesn't block play). */
+export const PortraitHint = () => (
+  <p
+    className="pointer-events-none absolute bottom-[calc(10.5rem+env(safe-area-inset-bottom))] left-1/2 z-20 w-max max-w-[90vw] -translate-x-1/2 animate-breathe rounded-full border border-white/15 bg-black/70 px-4 py-2 text-center text-sm text-bone"
+    data-testid="portrait-hint"
+  >
+    📱↻ Phone ko tircha (landscape) karo, zyada dikhega
+  </p>
 );

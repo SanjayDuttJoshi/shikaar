@@ -18,8 +18,8 @@ export const SquadPanel = ({ initialCode, busy, error, onCreate, onJoin, onClose
   const [code, setCode] = useState(normalizeRoomCode(initialCode));
   const valid = isValidRoomCode(code);
   return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm" data-testid="squad-panel">
-      <section className="flex w-full max-w-sm animate-rise flex-col gap-5 rounded-lg border border-white/10 bg-panel p-5">
+    <div className="fixed inset-0 z-40 flex overflow-y-auto bg-black/80 px-4 py-4 backdrop-blur-sm" data-testid="squad-panel">
+      <section className="m-auto flex w-full max-w-sm animate-rise flex-col gap-5 rounded-lg border border-white/10 bg-panel p-5 short:gap-3 short:p-4">
         <header className="text-center">
           <h2 className="font-display text-3xl text-[#e9d6cc]">Dosto ke saath</h2>
           <p className="mt-1 text-sm text-ash">2 se 6 log. Free, bina login, seedha ek phone se doosre tak.</p>

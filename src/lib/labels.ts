@@ -1,3 +1,4 @@
+import { PlayerStatus } from "@/types/game";
 import { KeyColor, Theme } from "@/types/world";
 
 const KEY_NAMES: Record<KeyColor, string> = {
@@ -21,4 +22,13 @@ export const keyLabel = (color: KeyColor | null): string => (color === null ? "M
 export const THEME_TITLE: Record<Theme, string> = {
   [Theme.Asylum]: "Purana Pagalkhana",
   [Theme.Haveli]: "Purani Haveli",
+};
+
+/** How a friend is doing, for the squad list in the corner of the HUD. */
+export const MATE_STATUS: Record<PlayerStatus, string> = {
+  [PlayerStatus.Alive]: "",
+  [PlayerStatus.Hiding]: "chhupa hai",
+  [PlayerStatus.Downed]: "gira hua! uthao",
+  [PlayerStatus.Dead]: "Shikari le gaya",
+  [PlayerStatus.Escaped]: "bahar nikal gaya",
 };
