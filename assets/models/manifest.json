@@ -1,0 +1,1162 @@
+{
+ "generated": "2026-11-05",
+ "conventions": {
+  "units": "metres",
+  "up": "+Y",
+  "front": "+Z unless noted",
+  "origin": "floor centre (characters: between the feet) unless noted",
+  "compression": "EXT_meshopt_compression + KHR_mesh_quantization + EXT_texture_webp -> GLTFLoader.setMeshoptDecoder(MeshoptDecoder)",
+  "licence": "all CC0 - see assets/CREDITS-VISUAL.md"
+ },
+ "totals": {
+  "models": 46,
+  "sizeKB": 16432
+ },
+ "models": [
+  {
+   "id": "survivor-male-a",
+   "path": "assets/models/characters/survivor-male-a.glb",
+   "triangles": 14081,
+   "sizeKB": 1308,
+   "heightMeters": 1.764,
+   "sizeMetersXYZ": [
+    1.722,
+    1.764,
+    0.337
+   ],
+   "facing": "+Z",
+   "animations": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Sprint",
+    "CrouchIdle",
+    "CrouchWalk",
+    "Death",
+    "Downed",
+    "GetUp",
+    "PickUp",
+    "Interact",
+    "ChestOpen",
+    "HitReact",
+    "Knockback",
+    "IdleFlashlight",
+    "IdleLantern"
+   ],
+   "notes": "Male survivor, light kurta-like shirt (Quaternius Peasant outfit, colour A), black side-parted hair, medium-brown skin. Skinned to a 65-bone humanoid skeleton (bone names root, pelvis, spine_01..03, neck_01, Head, clavicle/upperarm/lowerarm/hand_l|r, fingers, thigh/calf/foot/ball_l|r). Animations are Quaternius Universal Animation Library 1+2 clips retargeted onto THIS character's rest pose (world-space rotation delta + scaled pelvis translation), baked at 30 fps, in place (no root motion). Each GLB carries its own clips; clips from one survivor GLB should not be applied to a different body type (male vs female rest poses differ). One mesh node with materials Outfit/Skin/Hair/Eyes (one draw call each). Torch in IdleFlashlight is held in the left hand (bone hand_l). \"Downed\" is a 1 s static hold of the lying pose (first frame of GetUp/LayToIdle); no crawl clip exists in the free UAL packs. Load with GLTFLoader + MeshoptDecoder.",
+   "animationSeconds": {
+    "Idle": 2.5,
+    "Walk": 1.333,
+    "Run": 0.933,
+    "Sprint": 0.667,
+    "CrouchIdle": 2.933,
+    "CrouchWalk": 2.0,
+    "Death": 2.4,
+    "Downed": 1.0,
+    "GetUp": 1.533,
+    "PickUp": 0.833,
+    "Interact": 2.0,
+    "ChestOpen": 1.367,
+    "HitReact": 0.333,
+    "Knockback": 0.833,
+    "IdleFlashlight": 1.267,
+    "IdleLantern": 2.5
+   },
+   "loopingClips": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Sprint",
+    "CrouchIdle",
+    "CrouchWalk",
+    "Downed",
+    "IdleFlashlight",
+    "IdleLantern"
+   ],
+   "heightNote": "rest-pose (T-pose) height incl. hair; origin at the feet",
+   "skeletonBones": 65
+  },
+  {
+   "id": "survivor-male-b",
+   "path": "assets/models/characters/survivor-male-b.glb",
+   "triangles": 14082,
+   "sizeKB": 1298,
+   "heightMeters": 1.739,
+   "sizeMetersXYZ": [
+    1.721,
+    1.739,
+    0.337
+   ],
+   "facing": "+Z",
+   "animations": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Sprint",
+    "CrouchIdle",
+    "CrouchWalk",
+    "Death",
+    "Downed",
+    "GetUp",
+    "PickUp",
+    "Interact",
+    "ChestOpen",
+    "HitReact",
+    "Knockback",
+    "IdleFlashlight",
+    "IdleLantern"
+   ],
+   "notes": "Male survivor, dark shirt (Peasant colour B), buzz cut, darker skin. Skinned to a 65-bone humanoid skeleton (bone names root, pelvis, spine_01..03, neck_01, Head, clavicle/upperarm/lowerarm/hand_l|r, fingers, thigh/calf/foot/ball_l|r). Animations are Quaternius Universal Animation Library 1+2 clips retargeted onto THIS character's rest pose (world-space rotation delta + scaled pelvis translation), baked at 30 fps, in place (no root motion). Each GLB carries its own clips; clips from one survivor GLB should not be applied to a different body type (male vs female rest poses differ). One mesh node with materials Outfit/Skin/Hair/Eyes (one draw call each). Torch in IdleFlashlight is held in the left hand (bone hand_l). \"Downed\" is a 1 s static hold of the lying pose (first frame of GetUp/LayToIdle); no crawl clip exists in the free UAL packs. Load with GLTFLoader + MeshoptDecoder.",
+   "animationSeconds": {
+    "Idle": 2.5,
+    "Walk": 1.333,
+    "Run": 0.933,
+    "Sprint": 0.667,
+    "CrouchIdle": 2.933,
+    "CrouchWalk": 2.0,
+    "Death": 2.4,
+    "Downed": 1.0,
+    "GetUp": 1.533,
+    "PickUp": 0.833,
+    "Interact": 2.0,
+    "ChestOpen": 1.367,
+    "HitReact": 0.333,
+    "Knockback": 0.833,
+    "IdleFlashlight": 1.267,
+    "IdleLantern": 2.5
+   },
+   "loopingClips": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Sprint",
+    "CrouchIdle",
+    "CrouchWalk",
+    "Downed",
+    "IdleFlashlight",
+    "IdleLantern"
+   ],
+   "heightNote": "rest-pose (T-pose) height incl. hair; origin at the feet",
+   "skeletonBones": 65
+  },
+  {
+   "id": "survivor-female-a",
+   "path": "assets/models/characters/survivor-female-a.glb",
+   "triangles": 14083,
+   "sizeKB": 1328,
+   "heightMeters": 1.684,
+   "sizeMetersXYZ": [
+    1.571,
+    1.684,
+    0.316
+   ],
+   "facing": "+Z",
+   "animations": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Sprint",
+    "CrouchIdle",
+    "CrouchWalk",
+    "Death",
+    "Downed",
+    "GetUp",
+    "PickUp",
+    "Interact",
+    "ChestOpen",
+    "HitReact",
+    "Knockback",
+    "IdleFlashlight",
+    "IdleLantern"
+   ],
+   "notes": "Female survivor, cream blouse + corset vest (Peasant colour A), long dark-brown hair. Skinned to a 65-bone humanoid skeleton (bone names root, pelvis, spine_01..03, neck_01, Head, clavicle/upperarm/lowerarm/hand_l|r, fingers, thigh/calf/foot/ball_l|r). Animations are Quaternius Universal Animation Library 1+2 clips retargeted onto THIS character's rest pose (world-space rotation delta + scaled pelvis translation), baked at 30 fps, in place (no root motion). Each GLB carries its own clips; clips from one survivor GLB should not be applied to a different body type (male vs female rest poses differ). One mesh node with materials Outfit/Skin/Hair/Eyes (one draw call each). Torch in IdleFlashlight is held in the left hand (bone hand_l). \"Downed\" is a 1 s static hold of the lying pose (first frame of GetUp/LayToIdle); no crawl clip exists in the free UAL packs. Load with GLTFLoader + MeshoptDecoder.",
+   "animationSeconds": {
+    "Idle": 2.5,
+    "Walk": 1.333,
+    "Run": 0.933,
+    "Sprint": 0.667,
+    "CrouchIdle": 2.933,
+    "CrouchWalk": 2.0,
+    "Death": 2.4,
+    "Downed": 1.0,
+    "GetUp": 1.533,
+    "PickUp": 0.833,
+    "Interact": 2.0,
+    "ChestOpen": 1.367,
+    "HitReact": 0.333,
+    "Knockback": 0.833,
+    "IdleFlashlight": 1.267,
+    "IdleLantern": 2.5
+   },
+   "loopingClips": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Sprint",
+    "CrouchIdle",
+    "CrouchWalk",
+    "Downed",
+    "IdleFlashlight",
+    "IdleLantern"
+   ],
+   "heightNote": "rest-pose (T-pose) height incl. hair; origin at the feet",
+   "skeletonBones": 65
+  },
+  {
+   "id": "survivor-female-b",
+   "path": "assets/models/characters/survivor-female-b.glb",
+   "triangles": 14082,
+   "sizeKB": 1318,
+   "heightMeters": 1.686,
+   "sizeMetersXYZ": [
+    1.571,
+    1.686,
+    0.316
+   ],
+   "facing": "+Z",
+   "animations": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Sprint",
+    "CrouchIdle",
+    "CrouchWalk",
+    "Death",
+    "Downed",
+    "GetUp",
+    "PickUp",
+    "Interact",
+    "ChestOpen",
+    "HitReact",
+    "Knockback",
+    "IdleFlashlight",
+    "IdleLantern"
+   ],
+   "notes": "Female survivor, sage blouse (Peasant colour B), black hair in buns, darker skin. Skinned to a 65-bone humanoid skeleton (bone names root, pelvis, spine_01..03, neck_01, Head, clavicle/upperarm/lowerarm/hand_l|r, fingers, thigh/calf/foot/ball_l|r). Animations are Quaternius Universal Animation Library 1+2 clips retargeted onto THIS character's rest pose (world-space rotation delta + scaled pelvis translation), baked at 30 fps, in place (no root motion). Each GLB carries its own clips; clips from one survivor GLB should not be applied to a different body type (male vs female rest poses differ). One mesh node with materials Outfit/Skin/Hair/Eyes (one draw call each). Torch in IdleFlashlight is held in the left hand (bone hand_l). \"Downed\" is a 1 s static hold of the lying pose (first frame of GetUp/LayToIdle); no crawl clip exists in the free UAL packs. Load with GLTFLoader + MeshoptDecoder.",
+   "animationSeconds": {
+    "Idle": 2.5,
+    "Walk": 1.333,
+    "Run": 0.933,
+    "Sprint": 0.667,
+    "CrouchIdle": 2.933,
+    "CrouchWalk": 2.0,
+    "Death": 2.4,
+    "Downed": 1.0,
+    "GetUp": 1.533,
+    "PickUp": 0.833,
+    "Interact": 2.0,
+    "ChestOpen": 1.367,
+    "HitReact": 0.333,
+    "Knockback": 0.833,
+    "IdleFlashlight": 1.267,
+    "IdleLantern": 2.5
+   },
+   "loopingClips": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Sprint",
+    "CrouchIdle",
+    "CrouchWalk",
+    "Downed",
+    "IdleFlashlight",
+    "IdleLantern"
+   ],
+   "heightNote": "rest-pose (T-pose) height incl. hair; origin at the feet",
+   "skeletonBones": 65
+  },
+  {
+   "id": "monster",
+   "path": "assets/models/characters/monster.glb",
+   "triangles": 11662,
+   "sizeKB": 742,
+   "heightMeters": 2.128,
+   "sizeMetersXYZ": [
+    2.315,
+    2.128,
+    0.31
+   ],
+   "facing": "+Z",
+   "animations": [
+    "Idle",
+    "Walk",
+    "Run",
+    "CrouchWalk",
+    "Death",
+    "HitReact",
+    "Attack",
+    "AttackPunch",
+    "IdleAlert"
+   ],
+   "notes": "SUPERSEDED by shikari.glb (kept for compatibility). Gaunt 2.1 m ghoul built from the Universal Base Character male body: lengthened forearms/neck/fingers, thinned torso and limbs, ashen veined skin with sunken black eye sockets and a blood-stained mouth, emissive eyes (material \"MonsterEyes\", emissive ~ (1.0, 0.75, 0.35); raise emissiveIntensity for glow). Same 65-bone skeleton/bone names as the survivors. Clips: Idle/Walk/Attack are the UAL2 zombie clips (hunched, lurching); Run is a human sprint (play faster for a frantic chase). Skinned to a 65-bone humanoid skeleton (bone names root, pelvis, spine_01..03, neck_01, Head, clavicle/upperarm/lowerarm/hand_l|r, fingers, thigh/calf/foot/ball_l|r). Animations are Quaternius Universal Animation Library 1+2 clips retargeted onto THIS character's rest pose (world-space rotation delta + scaled pelvis translation), baked at 30 fps, in place (no root motion). Each GLB carries its own clips; clips from one survivor GLB should not be applied to a different body type (male vs female rest poses differ). One mesh node with materials Outfit/Skin/Hair/Eyes (one draw call each). Torch in IdleFlashlight is held in the left hand (bone hand_l). \"Downed\" is a 1 s static hold of the lying pose (first frame of GetUp/LayToIdle); no crawl clip exists in the free UAL packs. Load with GLTFLoader + MeshoptDecoder.",
+   "animationSeconds": {
+    "Idle": 1.333,
+    "Walk": 1.333,
+    "Run": 0.667,
+    "CrouchWalk": 2.0,
+    "Death": 2.4,
+    "HitReact": 0.333,
+    "Attack": 1.8,
+    "AttackPunch": 1.0,
+    "IdleAlert": 2.5
+   },
+   "loopingClips": [
+    "Idle",
+    "Walk",
+    "Run",
+    "CrouchWalk",
+    "IdleAlert"
+   ],
+   "heightNote": "rest-pose (T-pose) height incl. hair; origin at the feet",
+   "skeletonBones": 65
+  },
+  {
+   "id": "barrel",
+   "path": "assets/models/props/barrel.glb",
+   "triangles": 1473,
+   "sizeKB": 95,
+   "heightMeters": 0.93,
+   "sizeMetersXYZ": [
+    0.634,
+    0.93,
+    0.639
+   ],
+   "facing": "n/a (round)",
+   "animations": [],
+   "notes": "Poly Haven \"Barrel 03\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "bathtub",
+   "path": "assets/models/props/bathtub.glb",
+   "triangles": 452,
+   "sizeKB": 79,
+   "heightMeters": 0.85,
+   "sizeMetersXYZ": [
+    1.652,
+    0.85,
+    0.775
+   ],
+   "facing": "long axis = X, tap end +X",
+   "animations": [],
+   "notes": "Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre",
+   "nodes": [
+    "Fittings",
+    "Tub"
+   ]
+  },
+  {
+   "id": "battery",
+   "path": "assets/models/props/battery.glb",
+   "triangles": 348,
+   "sizeKB": 8,
+   "heightMeters": 0.064,
+   "sizeMetersXYZ": [
+    0.033,
+    0.064,
+    0.033
+   ],
+   "facing": "+Z (front)",
+   "animations": [],
+   "notes": "D-cell, 6.2 cm tall, standing. Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre"
+  },
+  {
+   "id": "brass-pot",
+   "path": "assets/models/props/brass-pot.glb",
+   "triangles": 3760,
+   "sizeKB": 81,
+   "heightMeters": 0.291,
+   "sizeMetersXYZ": [
+    0.302,
+    0.291,
+    0.302
+   ],
+   "facing": "n/a (round)",
+   "animations": [],
+   "notes": "Poly Haven \"Brass Pot 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "carved-cabinet",
+   "path": "assets/models/props/carved-cabinet.glb",
+   "triangles": 4896,
+   "sizeKB": 344,
+   "heightMeters": 2.362,
+   "sizeMetersXYZ": [
+    1.721,
+    2.362,
+    1.016
+   ],
+   "facing": "+Z (doors)",
+   "animations": [],
+   "notes": "Four hinge-pivoted doors (DoorUpperL/R, DoorLowerL/R). Open L doors by rotating about +Y by about -100 deg, R doors by about +100 deg. Lower compartment ~1.4 x 0.9 x 0.85 m (crouch-hide). Poly Haven \"Gothic Cabinet 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre",
+   "nodes": [
+    "Body",
+    "DoorLowerL",
+    "DoorLowerR",
+    "DoorUpperL",
+    "DoorUpperR"
+   ]
+  },
+  {
+   "id": "ceiling-lamp",
+   "path": "assets/models/props/ceiling-lamp.glb",
+   "triangles": 3919,
+   "sizeKB": 190,
+   "heightMeters": 0.75,
+   "sizeMetersXYZ": [
+    1.167,
+    0.75,
+    0.315
+   ],
+   "facing": "long axis = X",
+   "animations": [],
+   "notes": "Origin at the TOP centre (ceiling mount point); hangs down 0.75 m. Poly Haven \"Caged Hanging Light\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "top centre (ceiling mount)"
+  },
+  {
+   "id": "chair",
+   "path": "assets/models/props/chair.glb",
+   "triangles": 724,
+   "sizeKB": 84,
+   "heightMeters": 0.956,
+   "sizeMetersXYZ": [
+    0.432,
+    0.956,
+    0.54
+   ],
+   "facing": "+Z (front)",
+   "animations": [],
+   "notes": "Poly Haven \"Painted Wooden Chair 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "chandelier",
+   "path": "assets/models/props/chandelier.glb",
+   "triangles": 4900,
+   "sizeKB": 377,
+   "heightMeters": 1.041,
+   "sizeMetersXYZ": [
+    0.783,
+    1.041,
+    0.786
+   ],
+   "facing": "n/a (round)",
+   "animations": [],
+   "notes": "Origin at the TOP centre (ceiling mount point); hangs down 1.04 m. Poly Haven \"Chandelier 03\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "top centre (ceiling mount)"
+  },
+  {
+   "id": "crate",
+   "path": "assets/models/props/crate.glb",
+   "triangles": 4900,
+   "sizeKB": 324,
+   "heightMeters": 0.464,
+   "sizeMetersXYZ": [
+    0.529,
+    0.464,
+    1.166
+   ],
+   "facing": "long axis = Z",
+   "animations": [],
+   "notes": "Poly Haven \"Wooden Crate 02\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "fuse",
+   "path": "assets/models/props/fuse.glb",
+   "triangles": 168,
+   "sizeKB": 24,
+   "heightMeters": 0.048,
+   "sizeMetersXYZ": [
+    0.08,
+    0.048,
+    0.036
+   ],
+   "facing": "+Z (front)",
+   "animations": [],
+   "notes": "Indian-style rewireable porcelain fuse carrier (\"kit-kat\"), ~8 cm. Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre"
+  },
+  {
+   "id": "hospital-bed",
+   "path": "assets/models/props/hospital-bed.glb",
+   "triangles": 5390,
+   "sizeKB": 385,
+   "heightMeters": 1.205,
+   "sizeMetersXYZ": [
+    0.905,
+    1.205,
+    2.002
+   ],
+   "facing": "+Z = foot end (headboard at -Z)",
+   "animations": [],
+   "notes": "Poly Haven \"Old Bed Frame\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "iv-stand",
+   "path": "assets/models/props/iv-stand.glb",
+   "triangles": 1264,
+   "sizeKB": 103,
+   "heightMeters": 1.946,
+   "sizeMetersXYZ": [
+    0.587,
+    1.946,
+    0.601
+   ],
+   "facing": "n/a",
+   "animations": [],
+   "notes": "Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre"
+  },
+  {
+   "id": "medical-trolley",
+   "path": "assets/models/props/medical-trolley.glb",
+   "triangles": 4900,
+   "sizeKB": 390,
+   "heightMeters": 0.965,
+   "sizeMetersXYZ": [
+    1.276,
+    0.965,
+    0.755
+   ],
+   "facing": "+Z (front)",
+   "animations": [],
+   "notes": "Poly Haven \"Tool Cart\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "medkit",
+   "path": "assets/models/props/medkit.glb",
+   "triangles": 3718,
+   "sizeKB": 125,
+   "heightMeters": 0.098,
+   "sizeMetersXYZ": [
+    0.525,
+    0.098,
+    0.35
+   ],
+   "facing": "+Z (front)",
+   "animations": [],
+   "notes": "Poly Haven \"Medical Box\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "metal-cabinet",
+   "path": "assets/models/props/metal-cabinet.glb",
+   "triangles": 732,
+   "sizeKB": 80,
+   "heightMeters": 1.33,
+   "sizeMetersXYZ": [
+    0.48,
+    1.33,
+    0.675
+   ],
+   "facing": "+Z (drawer fronts)",
+   "animations": [],
+   "notes": "Drawer1..4 (bottom to top): slide each Drawer node along +Z up to ~0.45 m to open. Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre",
+   "nodes": [
+    "Body",
+    "Drawer1",
+    "Drawer2",
+    "Drawer3",
+    "Drawer4"
+   ]
+  },
+  {
+   "id": "metal-locker",
+   "path": "assets/models/props/metal-locker.glb",
+   "triangles": 408,
+   "sizeKB": 73,
+   "heightMeters": 1.98,
+   "sizeMetersXYZ": [
+    0.52,
+    1.98,
+    0.544
+   ],
+   "facing": "+Z (door)",
+   "animations": [],
+   "notes": "Door: pivot on hinge (left edge); open by rotating the Door node about +Y by about -100 deg (swings outward toward +Z). Interior ~0.49 W x 0.47 D x 1.85 H m (stand-in hiding spot). Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre",
+   "nodes": [
+    "Body",
+    "Door"
+   ]
+  },
+  {
+   "id": "metal-shelf",
+   "path": "assets/models/props/metal-shelf.glb",
+   "triangles": 4900,
+   "sizeKB": 262,
+   "heightMeters": 1.9,
+   "sizeMetersXYZ": [
+    0.915,
+    1.9,
+    0.6
+   ],
+   "facing": "+Z (front)",
+   "animations": [],
+   "notes": "Poly Haven \"Worn Metal Rack\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "mirror",
+   "path": "assets/models/props/mirror.glb",
+   "triangles": 3920,
+   "sizeKB": 198,
+   "heightMeters": 0.744,
+   "sizeMetersXYZ": [
+    0.487,
+    0.744,
+    0.026
+   ],
+   "facing": "+Z (glass)",
+   "animations": [],
+   "notes": "Poly Haven \"Ornate Mirror 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "oil-lantern",
+   "path": "assets/models/props/oil-lantern.glb",
+   "triangles": 3920,
+   "sizeKB": 163,
+   "heightMeters": 0.294,
+   "sizeMetersXYZ": [
+    0.123,
+    0.294,
+    0.097
+   ],
+   "facing": "+Z (front)",
+   "animations": [],
+   "notes": "Poly Haven \"Lantern 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "old-chair",
+   "path": "assets/models/props/old-chair.glb",
+   "triangles": 4900,
+   "sizeKB": 473,
+   "heightMeters": 1.066,
+   "sizeMetersXYZ": [
+    0.848,
+    1.066,
+    0.766
+   ],
+   "facing": "+Z (front)",
+   "animations": [],
+   "notes": "Poly Haven \"Arm Chair 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "old-desk",
+   "path": "assets/models/props/old-desk.glb",
+   "triangles": 4899,
+   "sizeKB": 191,
+   "heightMeters": 0.787,
+   "sizeMetersXYZ": [
+    2.0,
+    0.787,
+    0.947
+   ],
+   "facing": "+Z = drawer/seated side",
+   "animations": [],
+   "notes": "Poly Haven \"Metal Office Desk\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "old-key",
+   "path": "assets/models/props/old-key.glb",
+   "triangles": 428,
+   "sizeKB": 31,
+   "heightMeters": 0.009,
+   "sizeMetersXYZ": [
+    0.095,
+    0.009,
+    0.037
+   ],
+   "facing": "n/a (lies flat, long axis X)",
+   "animations": [],
+   "notes": "Lies flat on the floor; about 9 cm long. Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre"
+  },
+  {
+   "id": "old-table",
+   "path": "assets/models/props/old-table.glb",
+   "triangles": 4900,
+   "sizeKB": 186,
+   "heightMeters": 1.005,
+   "sizeMetersXYZ": [
+    1.399,
+    1.005,
+    1.399
+   ],
+   "facing": "n/a (round)",
+   "animations": [],
+   "notes": "Poly Haven \"Round Wooden Table 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "papers",
+   "path": "assets/models/props/papers.glb",
+   "triangles": 64,
+   "sizeKB": 49,
+   "heightMeters": 0.015,
+   "sizeMetersXYZ": [
+    0.941,
+    0.015,
+    0.893
+   ],
+   "facing": "n/a (flat)",
+   "animations": [],
+   "notes": "Scattered sheets (A4) lying on the floor, double-sided material. Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre"
+  },
+  {
+   "id": "rocking-chair",
+   "path": "assets/models/props/rocking-chair.glb",
+   "triangles": 4899,
+   "sizeKB": 287,
+   "heightMeters": 0.995,
+   "sizeMetersXYZ": [
+    0.709,
+    0.995,
+    0.834
+   ],
+   "facing": "+Z (front)",
+   "animations": [],
+   "notes": "Poly Haven \"Rockingchair 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "rug",
+   "path": "assets/models/props/rug.glb",
+   "triangles": 12,
+   "sizeKB": 103,
+   "heightMeters": 0.008,
+   "sizeMetersXYZ": [
+    2.2,
+    0.008,
+    1.5
+   ],
+   "facing": "n/a (flat)",
+   "animations": [],
+   "notes": "Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre"
+  },
+  {
+   "id": "sink",
+   "path": "assets/models/props/sink.glb",
+   "triangles": 560,
+   "sizeKB": 80,
+   "heightMeters": 0.941,
+   "sizeMetersXYZ": [
+    0.6,
+    0.941,
+    0.44
+   ],
+   "facing": "+Z (back against wall at -Z)",
+   "animations": [],
+   "notes": "Wall-mounted: back (glTF -Z side) goes against the wall; basin rim at 0.86 m. Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre",
+   "nodes": [
+    "Basin",
+    "Fittings"
+   ]
+  },
+  {
+   "id": "vase",
+   "path": "assets/models/props/vase.glb",
+   "triangles": 2939,
+   "sizeKB": 68,
+   "heightMeters": 0.693,
+   "sizeMetersXYZ": [
+    0.228,
+    0.693,
+    0.228
+   ],
+   "facing": "n/a (round)",
+   "animations": [],
+   "notes": "Poly Haven \"Brass Vase 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "wheelchair",
+   "path": "assets/models/props/wheelchair.glb",
+   "triangles": 5390,
+   "sizeKB": 363,
+   "heightMeters": 1.104,
+   "sizeMetersXYZ": [
+    0.824,
+    1.104,
+    1.09
+   ],
+   "facing": "+Z (seat faces +Z)",
+   "animations": [],
+   "notes": "Poly Haven \"Wheelchair 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "wooden-chest",
+   "path": "assets/models/props/wooden-chest.glb",
+   "triangles": 4900,
+   "sizeKB": 320,
+   "heightMeters": 0.35,
+   "sizeMetersXYZ": [
+    0.825,
+    0.35,
+    0.409
+   ],
+   "facing": "+Z (front)",
+   "animations": [],
+   "notes": "Poly Haven \"Wooden Crate 01\" decimated to <=~5k tris, 1k textures as WebP.",
+   "origin": "floor centre"
+  },
+  {
+   "id": "wooden-wardrobe",
+   "path": "assets/models/props/wooden-wardrobe.glb",
+   "triangles": 1012,
+   "sizeKB": 356,
+   "heightMeters": 2.155,
+   "sizeMetersXYZ": [
+    1.22,
+    2.155,
+    0.717
+   ],
+   "facing": "+Z (doors)",
+   "animations": [],
+   "notes": "DoorL pivot at left hinge, DoorR at right hinge: rotate DoorL about +Y by about -100 deg and DoorR by about +100 deg to open outward (+Z). Interior below the top shelf ~1.0 W x 0.55 D x 1.8 H m (stand-in hiding spot). Built procedurally in Blender for SHIKAAR (textures from this pack).",
+   "origin": "floor centre",
+   "nodes": [
+    "Body",
+    "DoorL",
+    "DoorR"
+   ]
+  },
+  {
+   "id": "shikari",
+   "path": "assets/models/characters/shikari.glb",
+   "triangles": 16322,
+   "sizeKB": 894,
+   "heightMeters": 2.293,
+   "sizeMetersXYZ": [
+    3.026,
+    2.293,
+    0.338
+   ],
+   "facing": "+Z",
+   "animations": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Attack",
+    "HitReact",
+    "Death",
+    "CrouchIdle",
+    "Scream"
+   ],
+   "notes": "Shikari \"Chowkidar\" - roaming main hunter (replaces monster.glb). ~2.3 m, emaciated ash-grey body with dark veins, hunched (spine offset baked into every clip), arms to the knees, long black claws, lips sewn shut with wire, pale small deep-set eyes (material MonsterEyes, emissive), torn khaki watchman uniform, belt + whistle cord. Extra bone \"jaw\" (child of Head): rotate it about its LOCAL +X axis to open the mouth (e.g. jaw.rotateX(0.66) = 38 deg; the Scream clip does this). Node \"Lantern\" (brass hurricane lantern mesh) is parented to bone hand_l; its child node \"LanternFlame\" holds the glass (alpha-blended, faint red-orange emissive) + flame mesh - add the red PointLight as a child of LanternFlame. Clips are UAL zombie/human clips retargeted to this body; Scream is procedural (head thrown back, jaw open, arms out).",
+   "animationSeconds": {
+    "Idle": 1.333,
+    "Walk": 1.333,
+    "Run": 0.667,
+    "Attack": 1.8,
+    "HitReact": 0.333,
+    "Death": 2.4,
+    "CrouchIdle": 2.933,
+    "Scream": 2.3
+   },
+   "loopingClips": [
+    "Idle",
+    "Walk",
+    "Run",
+    "CrouchIdle"
+   ],
+   "heightNote": "rest-pose height; origin between the feet",
+   "skeletonBones": 66,
+   "sharedSkeleton": "same 65 bone names as survivor-*/monster.glb (shikari/mareez add a \"jaw\" child of Head); each GLB carries clips retargeted to its own proportions",
+   "specialNodes": [
+    "Lantern (child of bone hand_l)",
+    "LanternFlame (child of Lantern)",
+    "jaw (bone)"
+   ],
+   "materials": [
+    "Skin",
+    "Details",
+    "MonsterEyes",
+    "Khaki",
+    "Leather",
+    "LanternBrass",
+    "LanternGlass",
+    "LanternFire"
+   ]
+  },
+  {
+   "id": "chudail",
+   "path": "assets/models/characters/chudail.glb",
+   "triangles": 15500,
+   "sizeKB": 958,
+   "heightMeters": 1.851,
+   "sizeMetersXYZ": [
+    1.901,
+    1.851,
+    0.462
+   ],
+   "facing": "+Z",
+   "animations": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Attack",
+    "HitReact",
+    "Death",
+    "CrouchIdle",
+    "Scream"
+   ],
+   "notes": "Chudail - haveli area monster. ~1.85 m, very thin grey-white woman, long thin fingers with dark nails, BACKWARDS feet (rotated 180 deg, ankles twisted), silver payal (anklets with bells) on both ankles, torn off-white saree (skirt to mid-calf so the feet show, maroon zari border at the hem, diagonal pallu across the chest + pallu tail down the back) and a torn maroon blouse. Very long wet black hair (alpha-masked hair cards, material Hair, alphaMode MASK) covers the face completely and hangs below the waist; faint pale eyes (MonsterEyes) can glint through. Idle = slow side-to-side sway with tilted head; Walk = slowed walk (gliding under the saree); Run = forward-leaning lunge; CrouchIdle = huddled, head down, sobbing shake (crying woman); Scream = head thrown back, arms out (no jaw - hidden by hair).",
+   "animationSeconds": {
+    "Idle": 2.5,
+    "Walk": 2.2,
+    "Run": 0.667,
+    "Attack": 1.8,
+    "HitReact": 0.333,
+    "Death": 2.4,
+    "CrouchIdle": 2.933,
+    "Scream": 2.467
+   },
+   "loopingClips": [
+    "Idle",
+    "Walk",
+    "Run",
+    "CrouchIdle"
+   ],
+   "heightNote": "rest-pose height; origin between the feet",
+   "skeletonBones": 65,
+   "sharedSkeleton": "same 65 bone names as survivor-*/monster.glb (shikari/mareez add a \"jaw\" child of Head); each GLB carries clips retargeted to its own proportions",
+   "specialNodes": [],
+   "materials": [
+    "Skin",
+    "MonsterEyes",
+    "Blouse",
+    "Saree",
+    "SareePlain",
+    "Details",
+    "Hair"
+   ]
+  },
+  {
+   "id": "mareez",
+   "path": "assets/models/characters/mareez.glb",
+   "triangles": 15500,
+   "sizeKB": 1023,
+   "heightMeters": 1.967,
+   "sizeMetersXYZ": [
+    2.157,
+    1.967,
+    0.443
+   ],
+   "facing": "+Z",
+   "animations": [
+    "Idle",
+    "Walk",
+    "Run",
+    "Attack",
+    "AttackPunch",
+    "HitReact",
+    "Death",
+    "CrouchIdle",
+    "Scream",
+    "Listen"
+   ],
+   "notes": "Andha Mareez - asylum area monster, blind, hunts by sound. ~1.95 m heavy-set, sickly pale bruised skin, filthy feet, stained hospital gown (top + skirt to the knees), thick bandage soaked in blood wrapped over the eyes (no eyeballs), torn straitjacket sleeves with dangling leather straps + iron buckles, iron shackle on the RIGHT ankle with a short chain lying on the floor. Extra bone \"jaw\" (child of Head): rotate about its LOCAL +X axis to open (Scream does this). CrouchIdle = rocking back and forth with head down; Listen = head cocked toward a sound; Idle includes a slow listening head sweep.",
+   "animationSeconds": {
+    "Idle": 1.333,
+    "Walk": 1.333,
+    "Run": 0.933,
+    "Attack": 1.8,
+    "AttackPunch": 1.0,
+    "HitReact": 0.333,
+    "Death": 2.4,
+    "CrouchIdle": 2.933,
+    "Scream": 2.3,
+    "Listen": 1.967
+   },
+   "loopingClips": [
+    "Idle",
+    "Walk",
+    "Run",
+    "CrouchIdle"
+   ],
+   "heightNote": "rest-pose height; origin between the feet",
+   "skeletonBones": 66,
+   "sharedSkeleton": "same 65 bone names as survivor-*/monster.glb (shikari/mareez add a \"jaw\" child of Head); each GLB carries clips retargeted to its own proportions",
+   "specialNodes": [
+    "jaw (bone)"
+   ],
+   "materials": [
+    "Skin",
+    "Details",
+    "Gown",
+    "Canvas",
+    "Leather",
+    "Bandage"
+   ]
+  },
+  {
+   "id": "corpse",
+   "path": "assets/models/props/corpse.glb",
+   "triangles": 7999,
+   "sizeKB": 338,
+   "heightMeters": 1.812,
+   "sizeMetersXYZ": [
+    0.638,
+    1.812,
+    0.617
+   ],
+   "facing": "+Z (front of body)",
+   "animations": [],
+   "notes": "Hanged corpse for the drop scare: a darkened, bloodied survivor-male body baked in a limp hanging pose (arms down, head tilted, toes pointing down). Static mesh. Origin = TOP of the head (attach to the rope point; body hangs down -Y, ~1.81 m).",
+   "origin": "top of head"
+  },
+  {
+   "id": "corpse-lying",
+   "path": "assets/models/props/corpse-lying.glb",
+   "triangles": 8000,
+   "sizeKB": 338,
+   "heightMeters": 0.317,
+   "sizeMetersXYZ": [
+    1.214,
+    0.317,
+    1.936
+   ],
+   "facing": "+Z",
+   "animations": [],
+   "notes": "Same corpse lying crumpled on its back on the floor (static).",
+   "origin": "floor centre"
+  },
+  {
+   "id": "noose",
+   "path": "assets/models/props/noose.glb",
+   "triangles": 2368,
+   "sizeKB": 39,
+   "heightMeters": 0.892,
+   "sizeMetersXYZ": [
+    0.245,
+    0.892,
+    0.07
+   ],
+   "facing": "n/a",
+   "animations": [],
+   "notes": "Rope noose: origin = ceiling attach point; rope hangs 0.62 m to a hangman knot, loop below (total ~0.89 m).",
+   "origin": "top (ceiling attach)"
+  },
+  {
+   "id": "cat",
+   "path": "assets/models/props/cat.glb",
+   "triangles": 935,
+   "sizeKB": 161,
+   "heightMeters": 0.351,
+   "sizeMetersXYZ": [
+    0.113,
+    0.351,
+    0.45
+   ],
+   "facing": "+Z (head)",
+   "animations": [
+    "Hiss",
+    "Idle",
+    "Jump",
+    "Run",
+    "Walk"
+   ],
+   "notes": "Black cat ~0.45 m long (tail up 0.35 m), emissive yellow-green eyes (material CatEyes). Root node \"Cat\" carries the scale/rotation. Idle/Walk from the source pack; Run, Jump (crouch-pounce-land, in place) and Hiss (arched back, puffed tail, tremble) are procedural.",
+   "animationSeconds": {
+    "Hiss": 1.5,
+    "Idle": 1.667,
+    "Jump": 1.0,
+    "Run": 0.583,
+    "Walk": 1.667
+   },
+   "loopingClips": [
+    "Idle",
+    "Run",
+    "Walk"
+   ],
+   "origin": "floor centre"
+  },
+  {
+   "id": "rooster",
+   "path": "assets/models/props/rooster.glb",
+   "triangles": 3451,
+   "sizeKB": 356,
+   "heightMeters": 0.55,
+   "sizeMetersXYZ": [
+    0.196,
+    0.55,
+    0.462
+   ],
+   "facing": "+Z (beak)",
+   "animations": [
+    "Crow",
+    "Death",
+    "Flutter",
+    "Idle",
+    "Peck",
+    "Run",
+    "Walk"
+   ],
+   "notes": "Desi-looking rooster ~0.55 m, photo-textured. Clips Idle, Walk, Run (sped-up walk), Crow, Peck, Death from the source; Flutter is a procedural startled hop + shake. The source rig has NO wing bones, so there is no real wing-flap.",
+   "animationSeconds": {
+    "Crow": 2.792,
+    "Death": 0.5,
+    "Flutter": 0.75,
+    "Idle": 1.5,
+    "Peck": 1.0,
+    "Run": 0.333,
+    "Walk": 0.75
+   },
+   "loopingClips": [
+    "Idle",
+    "Run",
+    "Walk"
+   ],
+   "origin": "floor centre"
+  },
+  {
+   "id": "old-radio",
+   "path": "assets/models/props/old-radio.glb",
+   "triangles": 284,
+   "sizeKB": 267,
+   "heightMeters": 0.308,
+   "sizeMetersXYZ": [
+    0.47,
+    0.308,
+    0.23
+   ],
+   "facing": "+Z (speaker/dial)",
+   "animations": [],
+   "notes": "1970s valve radio, 47 x 31 x 23 cm; dial material RadioDial is faintly emissive (raise emissiveIntensity when it switches on).",
+   "origin": "floor centre"
+  },
+  {
+   "id": "doll",
+   "path": "assets/models/props/doll.glb",
+   "triangles": 904,
+   "sizeKB": 172,
+   "heightMeters": 0.3,
+   "sizeMetersXYZ": [
+    0.294,
+    0.3,
+    0.15
+   ],
+   "facing": "+Z (face)",
+   "animations": [],
+   "notes": "Old cloth gudiya sitting on the floor, ~30 cm; one black button eye, the other torn off and stitched with red thread; yarn hair.",
+   "origin": "floor centre"
+  }
+ ]
+}
