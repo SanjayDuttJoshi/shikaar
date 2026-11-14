@@ -1,6 +1,5 @@
 import { PlayerStatus, RoundPhase } from "@/types/game";
 import { MessageTone } from "@/types/ui";
-import { MATE_STATUS } from "@/lib/labels";
 import type { HudSnapshot } from "@/types/ui";
 import { ObjectivePanel } from "@/components/GameScreen/objective-panel";
 import { HideOverlay } from "@/components/GameScreen/hide-overlay";
@@ -60,20 +59,11 @@ export const Hud = ({ hud, touch }: HudProps) => {
       )}
       {hud.watching && (
         <p className="absolute bottom-[18%] left-1/2 -translate-x-1/2 rounded bg-black/55 px-3 py-1.5 text-center text-sm text-bone" data-testid="watching">
-          {hud.watching} ko dekh rahe ho · {touch ? "Use button" : "E"} se badlo
+          {hud.watching} ko dekh rahe ho · {touch ? "Use ya naam dabao" : "E ya 1–5"} se badlo
         </p>
       )}
       {hud.status === PlayerStatus.Downed && (
         <p className="absolute bottom-[38%] left-1/2 -translate-x-1/2 animate-pulse-red rounded bg-black/60 px-4 py-1.5 font-display text-xl">Khoon beh raha hai... {Math.ceil(hud.bleed)}</p>
-      )}
-      {hud.teammates.length > 0 && (
-        <ul className="absolute top-3 right-3 space-y-0.5 rounded-md bg-black/35 px-3 py-2 text-xs text-ash">
-          {hud.teammates.map((t) => (
-            <li key={t.id} className={t.status === PlayerStatus.Downed ? "text-[#ff7a66]" : ""}>
-              {t.name} · {t.status === PlayerStatus.Alive ? `${Math.round(t.distance)}m` : t.status === PlayerStatus.Hiding ? `${MATE_STATUS[t.status]} · ${Math.round(t.distance)}m` : MATE_STATUS[t.status]}
-            </li>
-          ))}
-        </ul>
       )}
       {alive && (
         <div className={`absolute left-3 ${touch ? "top-[max(5.5rem,calc(env(safe-area-inset-top)+5rem))]" : "bottom-[max(0.75rem,env(safe-area-inset-bottom))]"}`}>

@@ -12,6 +12,8 @@ export interface InputState {
   interactPressed: boolean;
   flashPressed: boolean;
   torchPressed: boolean;
+  /** One-shot: show (or stop showing) the view of this squad friend, by their place in the squad list (-1 none). */
+  viewPressed: number;
 }
 
 export const createInputState = (yaw: number): InputState => ({
@@ -25,6 +27,7 @@ export const createInputState = (yaw: number): InputState => ({
   interactPressed: false,
   flashPressed: false,
   torchPressed: false,
+  viewPressed: -1,
 });
 
 export const MOUSE_SENSITIVITY = 0.0022;

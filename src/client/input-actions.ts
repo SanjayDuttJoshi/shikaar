@@ -19,6 +19,11 @@ export const toggleCrouch = (input: InputState): void => {
   input.crouch = !input.crouch;
 };
 
+/** Tap on a friend's name: see through their eyes (tap again to come back). */
+export const pressView = (input: InputState, index: number): void => {
+  input.viewPressed = index;
+};
+
 export const setSprint = (input: InputState, on: boolean): void => {
   input.sprint = on;
 };

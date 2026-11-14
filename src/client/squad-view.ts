@@ -34,7 +34,8 @@ export const createMateSteps = (): MateSteps => {
   };
 };
 
-const stillInside = (s: PlayerStatus): boolean => s === PlayerStatus.Alive || s === PlayerStatus.Hiding || s === PlayerStatus.Downed;
+/** Still in the building (can be watched or peeked at). */
+export const stillInside = (s: PlayerStatus): boolean => s === PlayerStatus.Alive || s === PlayerStatus.Hiding || s === PlayerStatus.Downed;
 
 /**
  * Who a fallen or escaped player watches: the current pick while they're still inside,

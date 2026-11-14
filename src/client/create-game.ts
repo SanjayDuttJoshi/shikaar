@@ -131,6 +131,7 @@ export const createGame = async (opts: CreateGameOptions, onProgress: ProgressFn
       runner.playFilm(index);
     },
     filmPlaying: () => film.isPlaying(),
+    filmOffered: () => (hud.get()?.offer ?? -1) >= 0,
   });
   onProgress(1, "Taiyaar");
   return {

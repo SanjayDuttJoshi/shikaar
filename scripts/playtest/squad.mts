@@ -8,6 +8,9 @@ import type { BrowserContext, Page } from "@playwright/test";
  * By default they meet over the real internet (Trystero, free public relays), like friends would.
  * Usage: node scripts/playtest/squad.mts <outDir> <seed> <asylum|haveli> <difficulty> [players=2] [minutes=10] [net=online|local] [phoneSeat]
  * phoneSeat: index of a friend who plays on a phone held sideways (touch controls on screen), e.g. 2.
+ * PEEKS env: moments where a player looks through a friend's eyes, e.g. "Raju:1@25,Sonu:2@45"
+ * (player:friend number in their squad list@game second). Laptop players press the number, phone players tap the name.
+ * The host and the phone player record their own game sound (<name>-audio.webm), so each screen can be its own video.
  */
 const [outDir = ".workshop/squad", seed = "21", building = "asylum", difficulty = "easy", players = "2", minutes = "10", net = "online", phoneSeat = "-1"] = process.argv.slice(2);
 mkdirSync(outDir, { recursive: true });
@@ -53,6 +56,14 @@ const seat = async (name: string, query: string, shared?: BrowserContext): Promi
   return { name, context, page, videoStart };
 };
 
+const PEEKS = (process.env.PEEKS ?? "")
+  .split(",")
+  .filter(Boolean)
+  .map((s) => {
+    const [who, rest] = s.split(":");
+    const [mate, at] = rest.split("@");
+    return { who, mate: Number(mate), at: Number(at), done: false, tries: 0 };
+  });
 const host = await seat(NAMES[0], "&recordaudio=1");
 await host.page.getByTestId("play-squad").click();
 await host.page.getByTestId("create-room").click();
@@ -60,7 +71,7 @@ const code = ((await host.page.getByTestId("room-code").textContent()) ?? "").tr
 console.log("room", code, local ? "(local)" : "(internet)");
 const seats: Seat[] = [host];
 for (let i = 1; i < Number(players); i += 1) {
-  const friend = await seat(NAMES[i], `&room=${code}`, local ? host.context : undefined);
+  const friend = await seat(NAMES[i], `&room=${code}${i === Number(phoneSeat) ? "&recordaudio=1" : ""}`, local ? host.context : undefined);
   await friend.page.getByTestId("join-room").click();
   seats.push(friend);
 }
@@ -72,6 +83,34 @@ await host.page.getByTestId("start-round").click();
 await Promise.all(seats.map((s) => s.page.waitForFunction(() => !!window.__shikaar, null, { timeout: 90000 })));
 const t0 = Date.now();
 for (const s of seats) writeFileSync(`${outDir}/${s.name}.offset`, String((t0 - s.videoStart) / 1000));
+
+/** Stops the autopilot, shows a friend's view for a few seconds (key or tap, like a real player), then comes back. */
+const peek = async (s: Seat, mate: number): Promise<string> => {
+  const free = await s.page.evaluate(() => {
+    const g = window.__shikaar;
+    if (!g || /flee|hide|hiding|reviving/.test(g.autopilot ?? "")) return false;
+    g.hold = true;
+    return true;
+  });
+  if (!free) return "busy";
+  await s.page.waitForTimeout(400);
+  const phone = NAMES.indexOf(s.name) === Number(phoneSeat);
+  if (phone) await s.page.getByTestId(`mate-${mate}`).tap().catch(() => undefined);
+  else await s.page.keyboard.press(`Digit${mate}`);
+  await s.page.waitForTimeout(1200);
+  const shown = await s.page.getByTestId("peek-banner").innerText().catch(() => "");
+  await s.page.waitForTimeout(4500);
+  if (await s.page.getByTestId("peek-banner").isVisible()) {
+    if (phone) await s.page.getByTestId("peek-back").tap().catch(() => undefined);
+    else await s.page.keyboard.press(`Digit${mate}`);
+  }
+  await s.page.waitForTimeout(700);
+  await s.page.evaluate(() => {
+    const g = window.__shikaar;
+    if (g) g.hold = false;
+  });
+  return shown.replace(/\s+/g, " ").slice(0, 60) || "not shown";
+};
 
 const log: string[] = [];
 let lastLine = "";
@@ -97,14 +136,40 @@ for (;;) {
       }),
     ),
   );
+  // What each autopilot is doing and where it stands, to spot anyone stuck.
+  const pilots = await Promise.all(
+    seats.map((s) =>
+      s.page
+        .evaluate(() => {
+          const p = window.__shikaar;
+          const me = p?.state.players.find((q) => q.id === p.selfId);
+          return p && me ? `${me.name}@${me.x.toFixed(1)},${me.z.toFixed(1)}:${p.autopilot ?? ""}` : "-";
+        })
+        .catch(() => "-"),
+    ),
+  );
   const done = await host.page.getByTestId("results").isVisible().catch(() => false);
+  for (const pk of PEEKS) {
+    const who = seats.find((s) => s.name === pk.who);
+    if (pk.done || !who || !snap || snap.t < pk.at || snap.phase === "ended") continue;
+    pk.done = true;
+    const res = await peek(who, pk.mate);
+    // Running or hiding right then: try again a little later.
+    if (res === "busy" && pk.tries < 8) {
+      pk.tries += 1;
+      pk.done = false;
+      pk.at = snap.t + 5;
+    }
+    log.push(`peek ${pk.who}→${pk.mate} at t=${snap.t}: ${res}`);
+    console.log(`peek ${pk.who}→${pk.mate} at t=${snap.t}: ${res}`);
+  }
   if (!snap || done) {
     log.push(`results after ${Math.round((Date.now() - t0) / 1000)}s`);
     break;
   }
   const line = `t=${snap.t} ${snap.phase} [${snap.players}] keys=${snap.keys} fuses=${snap.fuses} monsters=${snap.monsters} friends=${lag.join(",")}`;
-  if (line !== lastLine) {
-    log.push(line);
+  if (line !== lastLine || snap.t % 2 === 0) {
+    log.push(`${line} | ${pilots.join(" | ")}`);
     if (snap.t % 15 === 0) console.log(line);
   }
   lastLine = line;
@@ -115,13 +180,21 @@ for (;;) {
 }
 await host.page.waitForTimeout(3000);
 const results = await Promise.all(seats.map((s) => s.page.getByTestId("results").innerText().catch(() => "")));
-const capture = await host.page.evaluate(async () => {
-  const a = window.__shikaarAudio;
-  return a ? { startedAt: a.startedAt, data: await a.stop() } : null;
-});
-if (capture?.data) {
-  writeFileSync(`${outDir}/audio.webm`, Buffer.from(capture.data, "base64"));
-  writeFileSync(`${outDir}/audio.offset`, String((capture.startedAt - host.videoStart) / 1000));
+for (const s of seats) {
+  const capture = await s.page
+    .evaluate(async () => {
+      const a = window.__shikaarAudio;
+      return a ? { startedAt: a.startedAt, data: await a.stop() } : null;
+    })
+    .catch(() => null);
+  if (!capture?.data) continue;
+  const offset = String((capture.startedAt - s.videoStart) / 1000);
+  writeFileSync(`${outDir}/${s.name}-audio.webm`, Buffer.from(capture.data, "base64"));
+  writeFileSync(`${outDir}/${s.name}-audio.offset`, offset);
+  if (s === host) {
+    writeFileSync(`${outDir}/audio.webm`, Buffer.from(capture.data, "base64"));
+    writeFileSync(`${outDir}/audio.offset`, offset);
+  }
 }
 writeFileSync(`${outDir}/log.txt`, [...log, "", ...results.map((r, i) => `${seats[i].name}: ${r.split("\n").slice(0, 2).join(" | ")}`), "", "errors:", ...errors, "", "network:", ...netLog].join("\n"));
 if (netLog.length > 0) console.log("NETWORK:", netLog.slice(0, 12).join("\n"));

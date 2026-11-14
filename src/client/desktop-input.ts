@@ -3,6 +3,9 @@ import type { KeyBindings } from "@/types/ui";
 import type { InputState } from "@/client/input-state";
 import { MOUSE_SENSITIVITY } from "@/client/input-state";
 
+/** 1–5: look through a squad friend's eyes (the squad list shows who is which number). */
+const MATE_KEYS = ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5"];
+
 export interface DesktopInputOptions {
   canvas: HTMLCanvasElement;
   input: InputState;
@@ -35,6 +38,8 @@ export const attachDesktopInput = ({ canvas, input, sensitivity, bindings, inver
     if (e.code === "Escape" && document.pointerLockElement !== canvas) onPause();
     if (!enabled() || e.code === "Escape") return;
     const actions = actionsOf(e.code);
+    const mate = MATE_KEYS.indexOf(e.code);
+    if (mate >= 0 && actions.length === 0 && !e.repeat) input.viewPressed = mate;
     if (actions.length > 0) e.preventDefault();
     if (e.repeat) return;
     held.add(e.code);

@@ -5,8 +5,9 @@ import { ClickToStart, FailureOverlay, IntroOverlay, LoadingOverlay, PortraitHin
 import { PauseMenu } from "@/components/GameScreen/pause-menu";
 import { ControlsPanel } from "@/components/Common/controls-panel";
 import { Hud } from "@/components/GameScreen/hud";
+import { SquadHud } from "@/components/GameScreen/squad-hud";
 import { EnvelopeOverlay, FilmOverlay } from "@/components/GameScreen/story-overlays";
-import { pressTorch, setUse } from "@/client/input-actions";
+import { pressTorch, pressView, setUse } from "@/client/input-actions";
 import { TouchControls } from "@/components/GameScreen/touch-controls";
 import { useGameHandle } from "@/hooks/use-game-handle";
 import type { OnlineRound } from "@/hooks/use-game-handle";
@@ -77,6 +78,9 @@ export const GameScreen = ({ config, settings, onSettings, onFinish, onQuit, onl
           onPause={pause}
           watching={hud.status === PlayerStatus.Dead || hud.status === PlayerStatus.Escaped}
         />
+      )}
+      {handle && hud?.online && hud.teammates.length > 0 && hud.phase !== RoundPhase.Intro && !hud.film && !paused && (
+        <SquadHud teammates={hud.teammates} viewing={hud.viewing} peeking={hud.peeking} touch={touch} onView={(index) => pressView(handle.input, index)} />
       )}
       {handle && touch && portrait && !paused && !hud?.film && <PortraitHint />}
       {handle && waitingForClick && <ClickToStart onStart={() => canvasRef.current?.requestPointerLock?.()?.catch?.(() => undefined)} />}

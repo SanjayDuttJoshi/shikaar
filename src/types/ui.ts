@@ -64,6 +64,10 @@ export interface HudSnapshot {
   waiting: string;
   /** Name of the friend you're watching after dying/escaping. */
   watching: string;
+  /** Id of the friend whose eyes the screen shows (watching or peeking), "" for your own. */
+  viewing: string;
+  /** Name of the friend you're peeking at while still in the round ("" when not). */
+  peeking: string;
   /** Connection problem banner (empty when fine). */
   trouble: string;
 }

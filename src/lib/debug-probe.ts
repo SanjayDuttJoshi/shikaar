@@ -13,6 +13,8 @@ export interface DebugProbe {
   input: InputState;
   selfId: string;
   autopilot?: string;
+  /** Recording scripts set this to make the autopilot stand still for a moment (e.g. while showing a friend's view). */
+  hold?: boolean;
   /** Scene graph, for screenshot scripts that need to find things (e.g. wall writing). */
   scene?: Scene;
   /** Stands the player `distance` m from a point with a clear view of it, facing it. */
@@ -21,6 +23,8 @@ export interface DebugProbe {
   playFilm?: (index: number) => void;
   /** True while a story film is loading or playing. */
   filmPlaying?: () => boolean;
+  /** True while an opened envelope offers its film (Play / Later). */
+  filmOffered?: () => boolean;
 }
 
 const placeNearFor = (probe: DebugProbe) => (target: Vec2, distance: number, pitch = 0, needSight = true): boolean => {
@@ -57,7 +61,10 @@ export const exposeDebugProbe = (probe: DebugProbe): (() => void) => {
   if (params.get("debug") !== "1") return () => undefined;
   probe.placeNear = placeNearFor(probe);
   window.__shikaar = probe;
-  const pilot = params.get("autopilot") === "1" ? startAutopilot(probe.ctx, probe.state, probe.input, probe.selfId) : null;
+  const pilot = params.get("autopilot") === "1" ? startAutopilot(probe.ctx, probe.state, probe.input, probe.selfId, {
+          hold: () => probe.hold === true,
+          inFilm: () => (probe.filmPlaying?.() ?? false) || (probe.filmOffered?.() ?? false),
+        }) : null;
   const status = pilot ? window.setInterval(() => (probe.autopilot = pilot.status()), 250) : 0;
   return () => {
     pilot?.stop();

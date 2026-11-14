@@ -8,6 +8,7 @@ import type { AudioSink } from "@/audio/audio-sink";
 import { createCameraRig } from "@/client/camera-rig";
 import type { CameraRig } from "@/client/camera-rig";
 import { createMateSteps, pickWatched } from "@/client/squad-view";
+import { createFriendView } from "@/client/friend-view";
 import { messageFor, objectiveText } from "@/client/event-messages";
 import type { HudStore } from "@/client/hud-store";
 import type { InputState } from "@/client/input-state";
@@ -98,7 +99,12 @@ export const createGameRunner = ({ view, session, input, hud, audio: initialAudi
   /** Online, once you're out of the round you watch a friend still inside (E switches). */
   let watching: string | null = null;
   let watchRig: CameraRig | null = null;
+  /** Whose eyes `watchRig` follows. */
+  let rigFor: string | null = null;
   let outFor = 0;
+  const friendView = createFriendView(state, selfId, online, input);
+  /** Friend whose eyes the camera shows right now (watching after the round, or a peek), else null. */
+  const shownId = (): string | null => watching ?? friendView.peeking();
 
   /** Standing still: what an online round sends while you're in a menu or watching a film. */
   const idleInput = (p: PlayerState): PlayerInput => ({ moveX: 0, moveZ: 0, yaw: p.yaw, pitch: p.pitch, sprint: false, crouch: p.stance === Stance.Crouch });
@@ -137,6 +143,7 @@ export const createGameRunner = ({ view, session, input, hud, audio: initialAudi
     // Online the world doesn't wait while you watch a film: getting hurt ends it.
     const hurt = e.kind === GameEventKind.PlayerHit || e.kind === GameEventKind.PlayerDowned || e.kind === GameEventKind.PlayerPulledOut;
     if (mine && hurt && film.isPlaying()) film.stop();
+    if (mine && (hurt || e.kind === GameEventKind.MonsterSpotted)) friendView.stop();
     if (e.kind === GameEventKind.MonsterSpotted && e.player === selfId) rig.shake(0.5);
     if (e.kind === GameEventKind.Scare && e.scare === ScareKind.DoorSlam && e.x !== undefined && e.z !== undefined) {
       const d = Math.hypot(e.x - rig.pose.x, e.z - rig.pose.z);
@@ -173,7 +180,7 @@ export const createGameRunner = ({ view, session, input, hud, audio: initialAudi
       battery: p.battery,
       torchOn: p.torchOn,
       flashReady: 1 - p.flashCooldown / FLASH_COOLDOWN,
-      prompt: target.label,
+      prompt: friendView.peeking() ? "" : target.label,
       promptHold: target.kind === InteractKind.Revive ? (state.players.find((q) => q.id === target.id)?.revive ?? 0) / REVIVE_SECONDS : 0,
       keys: [...state.keys],
       keysTotal: locks,
@@ -200,6 +207,8 @@ export const createGameRunner = ({ view, session, input, hud, audio: initialAudi
       online,
       waiting: state.phase === RoundPhase.Intro ? session.waitingFor().join(", ") : "",
       watching: watching ? (state.players.find((q) => q.id === watching)?.name ?? "") : "",
+      viewing: shownId() ?? "",
+      peeking: friendView.peeking() ? (state.players.find((q) => q.id === friendView.peeking())?.name ?? "") : "",
       trouble: session.trouble(),
     });
   };
@@ -225,6 +234,7 @@ export const createGameRunner = ({ view, session, input, hud, audio: initialAudi
     if (!p) return;
     if (filmLoading || film.isPlaying()) {
       if (input.interactPressed || input.flashPressed) film.stop();
+      input.viewPressed = -1;
       input.interactPressed = false;
       input.flashPressed = false;
       input.torchPressed = false;
@@ -252,6 +262,7 @@ export const createGameRunner = ({ view, session, input, hud, audio: initialAudi
     }
     const blocked = paused || offer >= 0;
     const pressedUse = input.interactPressed;
+    const askedWatch = friendView.update(p, blocked);
     if (online && blocked) {
       events.length = 0;
       t += dt;
@@ -308,12 +319,14 @@ export const createGameRunner = ({ view, session, input, hud, audio: initialAudi
     const out = online && (p.status === PlayerStatus.Dead || p.status === PlayerStatus.Escaped) && state.phase !== RoundPhase.Ended;
     outFor = out ? outFor + dt : 0;
     const pick = outFor > WATCH_AFTER ? pickWatched(state, selfId, watching, pressedUse && !blocked) : null;
-    if (pick !== watching) {
-      watching = pick;
-      const target = state.players.find((q) => q.id === pick);
-      watchRig = target ? createCameraRig(target) : null;
+    watching = pick && askedWatch ? askedWatch : pick;
+    const shown = shownId();
+    if (shown !== rigFor) {
+      rigFor = shown;
+      const friend = state.players.find((q) => q.id === shown);
+      watchRig = friend ? createCameraRig(friend) : null;
     }
-    const viewed = (watching && state.players.find((q) => q.id === watching)) || p;
+    const viewed = (shown && state.players.find((q) => q.id === shown)) || p;
     const pose =
       viewed !== p && watchRig
         ? watchRig.update(viewed, level, dt, () => undefined)

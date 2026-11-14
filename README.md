@@ -9,7 +9,7 @@ A first-person co-op horror game in the browser. You and up to 5 friends are loc
 - **Scares**: a body dropping from the ceiling, someone crying in a corner, a cat, a rooster, a rocking chair, a radio that turns itself on.
 - **Story**: envelopes hidden in rooms play short in-engine films about what happened there.
 - **Hindi or English** voices for every line, subtitles included.
-- **Squad mode**: one friend opens a room, the others join with the 5-letter code or the invite link (WhatsApp button included). Bigger squads get a bigger building, more fuses and more monsters. Downed friends can be picked back up; when you're out you watch a friend still inside.
+- **Squad mode**: one friend opens a room, the others join with the 5-letter code or the invite link (WhatsApp button included). Bigger squads get a bigger building, more fuses and more monsters. Downed friends can be picked back up; when you're out you watch a friend still inside. The squad list (top right) shows how many are in; tap a friend's name (or press 1–5 on a laptop) to see through their eyes for a moment, and walk or tap again to come back.
 - Desktop (WASD or arrows, rebindable keys) and phones (touch sticks).
 
 ## 100% free, no server
