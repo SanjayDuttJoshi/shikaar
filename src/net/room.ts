@@ -198,7 +198,7 @@ export const createRoom = (transport: Transport, opts: RoomOptions): Room => {
 
   if (!opts.host) {
     setTimeout(() => {
-      if (!closed && status === RoomStatus.Connecting) fail("Room nahi mila. Code check karo, aur host ka game khula hona chahiye.");
+      if (!closed && status === RoomStatus.Connecting) fail("Room nahi mila. Code check karo, host ka game khula rakho. Phir bhi na jude to WiFi ya mobile data badal ke try karo.");
     }, opts.findTimeoutMs ?? FIND_TIMEOUT_MS);
   }
 
